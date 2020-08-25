@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{bf0cfd0b-5dd0-4a06-af08-96d5ef5ebf3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\events">
+      <UniqueIdentifier>{0c8cfc97-937b-41ad-a42f-b3fe4e72f0c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\world">
+      <UniqueIdentifier>{1f6ff4df-4c68-4765-b078-cfb5e39ef384}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Global">
+      <UniqueIdentifier>{f996cae1-6a5e-4771-bec3-657698320cd8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ibex.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\events\events.cpp">
+      <Filter>Header Files\events</Filter>
+    </ClCompile>
+    <ClCompile Include="include\world\void.cpp">
+      <Filter>Header Files\world</Filter>
+    </ClCompile>
+    <ClCompile Include="include\world\world.cpp">
+      <Filter>Header Files\world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Global\glad.c">
+      <Filter>Header Files\Global</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\worldShader.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\worldShader.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\Void\VoidFragment.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\Void\VoidVertex.vs">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ibex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\events\events.h">
+      <Filter>Header Files\events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\events\listeners.h">
+      <Filter>Header Files\events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\world\camera.h">
+      <Filter>Header Files\world</Filter>
+    </ClInclude>
+    <ClInclude Include="include\world\void.h">
+      <Filter>Header Files\world</Filter>
+    </ClInclude>
+    <ClInclude Include="include\world\world.h">
+      <Filter>Header Files\world</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
