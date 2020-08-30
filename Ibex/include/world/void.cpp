@@ -5,6 +5,7 @@
 #include "void.h"
 #include "camera.h"
 #include "shader.h"
+#include "mesh/grid.h"
 #include "mesh/primitives/triangle.h"
 
 Void::Void() : World() {
@@ -27,6 +28,8 @@ Void::Void(WorldConfig world, CameraConfig camera, ShaderConfig shader, WindowCo
 };
 
 int Void::load() {
+	// Initialize the grid buffers
+	grid = new Grid(window.dim, world.gridSize, world.gridColor);
 
 	// Shader must be created only after GLAD is loaded by engine
 	shader.worldShader = Shader(shader.worldVertexShader, shader.worldFragmentShader);
@@ -35,6 +38,7 @@ int Void::load() {
 		element->setupBuffers();
 	}
 
+	grid->setupBuffers();
 
 	return 0;
 }
@@ -65,6 +69,7 @@ int Void::onTick() {
 		element->draw();
 	}
 
+	if (world.showGrid) grid->draw();
 
 	return 0;
 }
@@ -75,6 +80,7 @@ int Void::cleanup() {
 		element->deleteBuffers();
 	}
 
+	grid->deleteBuffers();
 
 	return 0;
 }
