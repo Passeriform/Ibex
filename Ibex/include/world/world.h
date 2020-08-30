@@ -12,6 +12,8 @@
 
 #include "shader.h"
 #include "camera.h"
+#include "../mesh/mesh.h"
+#include "../mesh/grid.h"
 
 struct CameraConfig {
 	glm::vec3 origin;
@@ -44,6 +46,9 @@ public:
 	CameraConfig camera;
 	ShaderConfig shader;
 	WindowConfig window;
+
+	std::vector<Mesh*> elements;
+	Grid* grid;
 
 	World();
 	World(WorldConfig, CameraConfig, ShaderConfig, WindowConfig);
