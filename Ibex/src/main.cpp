@@ -7,7 +7,7 @@
 int main()
 {
 	Ibex::Engine core = Ibex::Engine()
-		.withWorld<Void>(Void());
+		.withWorld<Void>(new Void());
 
 	core.init();
 
