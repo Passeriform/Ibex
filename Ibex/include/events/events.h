@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef EVENTS_H
+#define EVENTS_H
+
 #include <iostream>
 
 #include <glad/glad.h>
@@ -17,3 +20,5 @@ public:
 	static void mouse_callback(GLFWwindow*, int, int, int);
 	static void scroll_callback(GLFWwindow*, double, double);
 };
+
+#endif

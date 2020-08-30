@@ -1,15 +1,8 @@
+#include <iostream>
 #include<utility>
 
 #include <ibex.h>
 #include <world/void.h>
-
-#include <iostream>
-
-//void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-//void error_callback(int error, const char* description);
-//void mouse_callback(GLFWwindow* window, int button, int action, int mods);
-//void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-//void processInput(GLFWwindow* window);
 
 int main()
 {
@@ -26,7 +19,7 @@ int main()
 	do {
 		core.tick();
 	} while (!core.dumped);
-	
+
 	core.dump();
 	return 0;
 }

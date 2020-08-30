@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef LISTENERS_H
+#define LISTENERS_H
+
 #include <iostream>
 
 #include <glad/glad.h>
@@ -32,8 +35,10 @@ void Event::mouse_callback(GLFWwindow* window, int button, int action, int mods)
 
 void Event::scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
 	Ibex::Engine* engine = (Ibex::Engine*)glfwGetWindowUserPointer(window);
-	
+
 	Camera* camera = &engine->activeWorld->camera.instance;
 
 	camera->ZoomCamera(yoffset);
 }
+
+#endif
