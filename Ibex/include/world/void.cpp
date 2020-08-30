@@ -5,6 +5,7 @@
 #include "void.h"
 #include "camera.h"
 #include "shader.h"
+#include "mesh/primitives/triangle.h"
 
 Void::Void() : World() {
 	world.backgroundColor = glm::vec4(42.0f / 255.0f, 0.0f / 255.0f, 41.0f / 255.0f, 1.0f);
@@ -17,6 +18,7 @@ Void::Void() : World() {
 	shader.worldVertexShader = "shaders/meshShader.vert";
 	shader.worldFragmentShader = "shaders/meshShader.frag";
 
+	this->addElement<Triangle>();
 };
 
 Void::Void(WorldConfig world, CameraConfig camera, ShaderConfig shader, WindowConfig window) :
