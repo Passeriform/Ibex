@@ -9,8 +9,8 @@
 #include <GLFW/glfw3.h>
 
 #include "ibex.h"
-#include "world/camera.h"
 #include "events.h"
+#include "camera.h"
 
 void Event::error_callback(int error, const char* description) {
 	fputs(description, stderr);
