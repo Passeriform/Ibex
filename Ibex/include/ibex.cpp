@@ -11,48 +11,31 @@
 using namespace Ibex;
 
 Engine::Engine() :
-    gridSize(64),
-    scrWidth(64 * 64),
-    scrHeight(64 * 64),
     dumped(false)
 { };
 
-Engine& Engine::withGridSize(long gridDim) {
-    gridSize = gridDim;
-    return *this;
-}
 
-Engine& Engine::withScrDim(std::pair<unsigned long, unsigned long> scrDim) {
-    scrWidth = scrDim.first;
-    scrHeight = scrDim.second;
-    return *this;
-}
+int Engine::init() {
+    // Temporary window dimensions (To be passed by the containing frame instead.)
+    double scrWidth = 32 * 32, scrHeight = 32 * 32;
 
-Engine& Engine::withScrWidth(unsigned long scrDim) {
-    scrWidth = scrDim;
-    return *this;
-}
-
-Engine& Engine::withScrHeight(unsigned long scrDim) {
-    scrHeight = scrDim;
-    return *this;
-}
-
-int Engine::init()
-{
+    // Initialize GLFW
     if (!glfwInit()) {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
 
+    // Set GLFW metadata
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+    // Compatibility with OSX
 #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
+    // Create drawing window
     window = glfwCreateWindow(scrWidth, scrHeight, "Ibex Engine", NULL, NULL);
     if (window == NULL)
     {
@@ -61,22 +44,36 @@ int Engine::init()
         return -1;
     }
 
+    // Set current context
     glfwMakeContextCurrent(window);
-    
+
+    // Bind engine instance to the window
     glfwSetWindowUserPointer(window, this);
 
+    // Disabled mouse cursor (To be enabled after iframe integration)
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+    // Load GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "GLAD couldn't be loaded!!!" << std::endl;
         return -1;
     }
 
+    // Enable testing with the depth buffer
     glEnable(GL_DEPTH_TEST);
 
+    // Explicitly set window dimensions
+    activeWorld->setWindow(
+        WindowConfig{
+            std::make_pair(scrWidth, scrHeight)     // dim
+        }
+    );
+
+    // Load the world
     activeWorld->load();
 
+    // Bind event callbacks
     glfwSetFramebufferSizeCallback(window, &Event::framebuffer_size_callback);
     glfwSetErrorCallback(&Event::error_callback);
     glfwSetMouseButtonCallback(window, &Event::mouse_callback);
@@ -85,29 +82,32 @@ int Engine::init()
     return 0;
 }
 
-int Engine::tick()
-{
-    // float currentFrame = glfwGetTime();
-    // deltaTime = currentFrame - lastFrame;
-    // lastFrame = currentFrame;
-
+int Engine::tick() {
+    // Tick events and process
     Event::tick(window);
-    
+
+    // Call the world tick callback
     activeWorld->onTick();
 
+    // Swap buffers
     glfwSwapBuffers(window);
+
+    // Poll for GLFW events
     glfwPollEvents();
 
     return 0;
 }
 
-int Engine::dump()
-{
+int Engine::dump() {
+    // Verify if core dumped
     if (!dumped) {
         dumped = true;
     }
 
+    // Perform cleanup on the active world
     activeWorld->cleanup();
+
+    glfwTerminate();
 
     return 0;
 }
