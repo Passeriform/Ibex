@@ -20,24 +20,36 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Global\glad.c" />
+    <ClCompile Include="gui\ui.cpp" />
     <ClCompile Include="include\events\events.cpp" />
     <ClCompile Include="include\ibex.cpp" />
+    <ClCompile Include="include\lighting\lighting.cpp" />
+    <ClCompile Include="include\mesh\grid.cpp" />
+    <ClCompile Include="include\mesh\mesh.cpp" />
+    <ClCompile Include="include\mesh\primitives\square.cpp" />
+    <ClCompile Include="include\mesh\primitives\triangle.cpp" />
     <ClCompile Include="include\world\void.cpp" />
     <ClCompile Include="include\world\world.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\Void\VoidFragment.fs" />
-    <None Include="shaders\Void\VoidVertex.vs" />
-    <None Include="shaders\worldShader.fs" />
-    <None Include="shaders\worldShader.vs" />
+    <None Include="shaders\lightShader.frag" />
+    <None Include="shaders\meshShader.frag" />
+    <None Include="shaders\meshShader.vert" />
+    <None Include="Workspace.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\events\events.h" />
     <ClInclude Include="include\events\listeners.h" />
+    <ClInclude Include="include\glErrorLogger.h" />
     <ClInclude Include="include\ibex.h" />
+    <ClInclude Include="include\lighting\lighting.h" />
+    <ClInclude Include="include\mesh\grid.h" />
+    <ClInclude Include="include\mesh\mesh.h" />
+    <ClInclude Include="include\mesh\primitives\square.h" />
+    <ClInclude Include="include\mesh\primitives\triangle.h" />
     <ClInclude Include="include\shader.h" />
-    <ClInclude Include="include\world\camera.h" />
     <ClInclude Include="include\world\void.h" />
     <ClInclude Include="include\world\world.h" />
   </ItemGroup>
@@ -97,8 +109,8 @@
     <LibraryPath>I:\MyProjects\OpenGL\Global\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>G:\MyProjects\OpenGL\Ibex\Ibex\include;G:\MyProjects\OpenGL\Global\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>G:\MyProjects\OpenGL\Global\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Core\Qt\5.15.0\msvc2019_64\include;G:\MyProjects\OpenGL\Ibex\Ibex\include;G:\MyProjects\OpenGL\Global\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Core\Qt\5.15.0\msvc2019_64\lib;G:\MyProjects\OpenGL\Global\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -117,7 +129,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\MyProjects\OpenGL\Global\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Core\Qt\5.15.0\msvc2019_64\include;G:\MyProjects\OpenGL\Global\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
