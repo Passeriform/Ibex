@@ -1,4 +1,6 @@
 #include "void.h"
+#include "mesh/primitives/cube.h"
+#include "lighting/omniDirectionLight.h"
 
 Void::Void() : World() {
 	world.backgroundColor = glm::vec4(42.0f / 255.0f, 0.0f / 255.0f, 41.0f / 255.0f, 1.0f);
@@ -10,8 +12,12 @@ Void::Void() : World() {
 
 	shader.worldVertexShader = "shaders/meshShader.vert";
 	shader.worldFragmentShader = "shaders/meshShader.frag";
+	this->addElement<Cube>();
 
-	this->addElement<Triangle>();
+	this->addLighting<OmniDirectionLight>(
+		glm::vec3(1.0f, 1.0f, 1.0f),		// Origin
+		glm::vec3(1.0f, 1.0f, 1.0f)			// Light Color
+		);
 };
 
 Void::Void(WorldConfig world, CameraConfig camera, ShaderConfig shader, WindowConfig window) :
@@ -25,12 +31,15 @@ int Void::load() {
 
 	// Shader must be created only after GLAD is loaded by engine
 	shader.worldShader = Shader(shader.worldVertexShader, shader.worldFragmentShader);
+	grid->setupBuffers();
 
 	for (auto element : elements) {
 		element->setupBuffers();
 	}
 
-	grid->setupBuffers();
+	for (auto light : lightSources) {
+		light->setupShaders();
+	}
 
 	return 0;
 }
@@ -56,23 +65,29 @@ int Void::onTick() {
 
 	glm::mat4 model = glm::mat4(1.0f);
 	shader.worldShader.setMat4("model", model);
+	if (world.showGrid) grid->draw();
 
 	for (auto element : elements) {
 		element->draw();
 	}
 
-	if (world.showGrid) grid->draw();
+	for (auto light : lightSources) {
+		light->draw(&camera.instance, window.dim);
+	}
 
 	return 0;
 }
 
 int Void::cleanup() {
-	// Flush buffer
+	grid->deleteBuffers();
+
 	for (auto element : elements) {
 		element->deleteBuffers();
 	}
 
-	grid->deleteBuffers();
+	for (auto light : lightSources) {
+		light->deleteShadersAndBuffers();
+	}
 
 	return 0;
 }
