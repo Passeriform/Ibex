@@ -42,9 +42,6 @@
     <ClCompile Include="..\..\Global\glad.c">
       <Filter>Header Files\vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gui\ui.cpp">
       <Filter>Header Files\gui</Filter>
     </ClCompile>
@@ -75,6 +72,15 @@
     <ClCompile Include="include\lighting\lighting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\lighting\omniDirectionLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\mesh\primitives\cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Workspace.ui">
@@ -87,6 +93,9 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="shaders\meshShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\lightShader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -129,6 +138,12 @@
     </ClInclude>
     <ClInclude Include="include\lighting\lighting.h">
       <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="include\lighting\omniDirectionLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mesh\primitives\cube.h">
+      <Filter>Header Files\mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

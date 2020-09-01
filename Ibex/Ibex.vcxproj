@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -24,8 +24,10 @@
     <ClCompile Include="include\events\events.cpp" />
     <ClCompile Include="include\ibex.cpp" />
     <ClCompile Include="include\lighting\lighting.cpp" />
+    <ClCompile Include="include\lighting\omniDirectionLight.cpp" />
     <ClCompile Include="include\mesh\grid.cpp" />
     <ClCompile Include="include\mesh\mesh.cpp" />
+    <ClCompile Include="include\mesh\primitives\cube.cpp" />
     <ClCompile Include="include\mesh\primitives\square.cpp" />
     <ClCompile Include="include\mesh\primitives\triangle.cpp" />
     <ClCompile Include="include\world\void.cpp" />
@@ -34,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\lightShader.frag" />
+    <None Include="shaders\lightShader.vert" />
     <None Include="shaders\meshShader.frag" />
     <None Include="shaders\meshShader.vert" />
     <None Include="Workspace.ui" />
@@ -45,8 +48,10 @@
     <ClInclude Include="include\glErrorLogger.h" />
     <ClInclude Include="include\ibex.h" />
     <ClInclude Include="include\lighting\lighting.h" />
+    <ClInclude Include="include\lighting\omniDirectionLight.h" />
     <ClInclude Include="include\mesh\grid.h" />
     <ClInclude Include="include\mesh\mesh.h" />
+    <ClInclude Include="include\mesh\primitives\cube.h" />
     <ClInclude Include="include\mesh\primitives\square.h" />
     <ClInclude Include="include\mesh\primitives\triangle.h" />
     <ClInclude Include="include\shader.h" />
