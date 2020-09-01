@@ -24,6 +24,9 @@ public:
 	std::vector<glm::vec3> locations;
 
 	Mesh();
+	Mesh(std::vector<Vertex>);
+	Mesh(std::vector<glm::vec3>);
+	Mesh(std::vector<glm::vec3>, std::vector<glm::vec3>);
 	virtual int setupBuffers();
 	virtual int draw();
 	virtual int deleteBuffers();

@@ -12,6 +12,12 @@ Triangle::Triangle() : Mesh() {
 	};
 }
 
+Triangle::Triangle(std::vector<Vertex> vertices) : Mesh(vertices) { }
+
+Triangle::Triangle(std::vector<glm::vec3> rawVec) : Mesh(rawVec) { }
+
+Triangle::Triangle(std::vector<glm::vec3> posVec, std::vector<glm::vec3> colorVec) : Mesh(posVec, colorVec) { }
+
 int Triangle::setupBuffers() {
 	// Separate VAO for each component initialized only once
 	glGenVertexArrays(1, &VAO);
