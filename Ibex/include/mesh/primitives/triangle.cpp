@@ -8,10 +8,7 @@ Triangle::Triangle() : Mesh() {
 		/*             Position                           Color           */
 		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.0f,  0.0f,  0.5f)),
 		Vertex(glm::vec3(0.5f, -0.5f, -0.5f),  glm::vec3(0.2f,  0.3f,  1.0f)),
-		Vertex(glm::vec3(0.5f,  0.5f, -0.5f),  glm::vec3(0.3f,  0.6f,  0.5f)),
-		Vertex(glm::vec3(0.5f,  0.5f, -0.5f),  glm::vec3(0.4f,  1.0f,  1.0f)),
-		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec3(0.6f,  0.0f,  0.5f)),
-		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.7f,  0.3f,  1.0f))
+		Vertex(glm::vec3(0.5f,  0.5f, -0.5f),  glm::vec3(0.3f,  0.6f,  0.5f))
 	};
 }
 
@@ -37,8 +34,7 @@ int Triangle::setupBuffers() {
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
 	glEnableVertexAttribArray(1);
 
-	glCheckError();
-
+	// Unbind the VAO
 	glBindVertexArray(0);
 
 	return 0;

@@ -58,9 +58,11 @@ int Grid::setupBuffers() {
 	// Generate IBO for the grid
 	glGenBuffers(1, &IBO);
 
+	// Bind the IBO
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(glm::uvec4), indices.data(), GL_STATIC_DRAW);
 
+	// Unbind the VAO
 	glBindVertexArray(0);
 
 	return 0;

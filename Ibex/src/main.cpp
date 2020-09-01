@@ -1,8 +1,7 @@
 #include <ibex.h>
 #include <world/void.h>
 
-int main()
-{
+int main() {
 	Ibex::Engine core = Ibex::Engine()
 		.withWorld<Void>(new Void());
 

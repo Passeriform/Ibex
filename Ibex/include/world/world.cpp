@@ -9,6 +9,7 @@ World::World() {
 			glm::vec3(-1000.0f, -1000.0f, -1000.0f),
 			glm::vec3(1000.0f, 1000.0f, 1000.0f)
 		),
+
 		glm::vec4(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f),           // backgroundColor
 		glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f),     // foregroundColor
 		glm::vec4(127.0f / 255.0f, 127.0f / 255.0f, 127.0f / 255.0f, 1.0f)      // gridColor
@@ -18,10 +19,12 @@ World::World() {
 		glm::vec3(0.0f, 0.0f, 0.0f)                 // origin
 	};
 
-	shader = ShaderConfig{                          // Shaders remain uninitialized
-	};
+	lighting = LightingConfig{
+		0.1,										// ambientStrength
+		"shaders/lightShader.vert",					// vertexPath
+		"shaders/lightShader.frag"					// fragmentPath
+	};												// TODO: Provision for adding multiple selectable lighting shader.
 
-	window = WindowConfig{                          // Window remains uninitialized
 	};
 }
 

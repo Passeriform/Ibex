@@ -4,13 +4,10 @@
 #include "ibex.h"
 
 bool Event::lmb_down = false, Event::rmb_down = false, Event::mmb_down = false;
-
 double Event::dragInitX = DBL_MAX, Event::dragInitY = DBL_MAX;
 
-void Event::tick(GLFWwindow* window)
-{
+void Event::tick(GLFWwindow* window) {
 	Ibex::Engine* engine = (Ibex::Engine*)glfwGetWindowUserPointer(window);
-
 	Camera* camera = &engine->activeWorld->camera.instance;
 
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
