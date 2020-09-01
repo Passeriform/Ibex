@@ -25,13 +25,14 @@ World::World() {
 		"shaders/lightShader.frag"					// fragmentPath
 	};												// TODO: Provision for adding multiple selectable lighting shader.
 
+	window = WindowConfig{                          // Window remains uninitialized (Must be initialized within world loading.
 	};
 }
 
-World::World(WorldConfig world, CameraConfig camera, ShaderConfig shader, WindowConfig window) :
+World::World(WorldConfig world, CameraConfig camera, LightingConfig lighting, WindowConfig window) :
 	world(world),
 	camera(camera),
-	shader(shader),
+	lighting(lighting),
 	window(window)
 { }
 
@@ -57,8 +58,8 @@ int World::setCamera(CameraConfig camera) {
 	return 0;
 }
 
-int World::setShader(ShaderConfig shader) {
-	this->shader = shader;
+int World::setLighting(LightingConfig lighting) {
+	this->lighting = lighting;
 	return 0;
 }
 

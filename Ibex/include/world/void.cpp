@@ -10,8 +10,6 @@ Void::Void() : World() {
 	camera.origin = glm::vec3(0.0f, 1.0f, 3.0f);
 	camera.instance = Camera(camera.origin);
 
-	shader.worldVertexShader = "shaders/meshShader.vert";
-	shader.worldFragmentShader = "shaders/meshShader.frag";
 	this->addElement<Cube>();
 
 	this->addLighting<OmniDirectionLight>(
@@ -20,8 +18,8 @@ Void::Void() : World() {
 		);
 };
 
-Void::Void(WorldConfig world, CameraConfig camera, ShaderConfig shader, WindowConfig window) :
-	World(world, camera, shader, window) {
+Void::Void(WorldConfig world, CameraConfig camera, LightingConfig lighting, WindowConfig window) :
+	World(world, camera, lighting, window) {
 	camera.instance = Camera(camera.origin);
 };
 
@@ -30,7 +28,8 @@ int Void::load() {
 	grid = new Grid(window.dim, world.gridSize, world.gridColor);
 
 	// Shader must be created only after GLAD is loaded by engine
-	shader.worldShader = Shader(shader.worldVertexShader, shader.worldFragmentShader);
+	meshShader = Shader("shaders/meshShader.vert", "shaders/meshShader.frag");
+
 	grid->setupBuffers();
 
 	for (auto element : elements) {
@@ -55,16 +54,19 @@ int Void::onTick() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	shader.worldShader.use();
+	meshShader.use();
+
+	meshShader.setVec3("lightColor", lightSources[0]->getColor());	// Must run for all light sources (Testing with one).
 
 	glm::mat4 projection = glm::perspective(glm::radians(camera.instance.Zoom), (float)window.dim.first / (float)window.dim.second, 0.1f, 100.0f);
-	shader.worldShader.setMat4("projection", projection);
+	meshShader.setMat4("projection", projection);
 
 	glm::mat4 view = camera.instance.GetViewMatrix();
-	shader.worldShader.setMat4("view", view);
+	meshShader.setMat4("view", view);
 
 	glm::mat4 model = glm::mat4(1.0f);
-	shader.worldShader.setMat4("model", model);
+	meshShader.setMat4("model", model);
+
 	if (world.showGrid) grid->draw();
 
 	for (auto element : elements) {
