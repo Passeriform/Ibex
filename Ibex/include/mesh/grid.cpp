@@ -1,7 +1,7 @@
-#include <utility>
-
 #include "grid.h"
-#include "mesh.h"
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 Grid::Grid(std::pair<int, int> dim, int gridSize, glm::vec3 color) : Mesh() {
 	int slicex = dim.first / (float)gridSize;

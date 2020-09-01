@@ -1,7 +1,6 @@
 #include <float.h>
 
 #include "events.h"
-
 #include "ibex.h"
 
 bool Event::lmb_down = false, Event::rmb_down = false, Event::mmb_down = false;

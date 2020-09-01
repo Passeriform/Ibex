@@ -1,12 +1,4 @@
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include "void.h"
-#include "camera.h"
-#include "shader.h"
-#include "mesh/grid.h"
-#include "mesh/primitives/triangle.h"
 
 Void::Void() : World() {
 	world.backgroundColor = glm::vec4(42.0f / 255.0f, 0.0f / 255.0f, 41.0f / 255.0f, 1.0f);

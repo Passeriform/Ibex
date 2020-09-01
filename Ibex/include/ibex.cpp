@@ -1,11 +1,4 @@
-#include <iostream>
-#include <utility>
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "ibex.h"
-#include "world/world.h"
 #include "events/listeners.h"
 
 using namespace Ibex;
