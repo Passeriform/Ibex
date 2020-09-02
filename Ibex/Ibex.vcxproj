@@ -25,6 +25,11 @@
     <ClCompile Include="include\ibex.cpp" />
     <ClCompile Include="include\lighting\lighting.cpp" />
     <ClCompile Include="include\lighting\omniDirectionLight.cpp" />
+    <ClCompile Include="include\material\emerald.cpp" />
+    <ClCompile Include="include\material\gold.cpp" />
+    <ClCompile Include="include\material\material.cpp" />
+    <ClCompile Include="include\material\pearl.cpp" />
+    <ClCompile Include="include\material\plastic.cpp" />
     <ClCompile Include="include\mesh\grid.cpp" />
     <ClCompile Include="include\mesh\mesh.cpp" />
     <ClCompile Include="include\mesh\primitives\cube.cpp" />
@@ -37,8 +42,12 @@
   <ItemGroup>
     <None Include="shaders\lightShader.frag" />
     <None Include="shaders\lightShader.vert" />
+    <None Include="shaders\materialShader.frag" />
+    <None Include="shaders\materialShader.vert" />
     <None Include="shaders\meshShader.frag" />
     <None Include="shaders\meshShader.vert" />
+    <None Include="shaders\phongMeshShader.frag" />
+    <None Include="shaders\phongMeshShader.vert" />
     <None Include="Workspace.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +58,11 @@
     <ClInclude Include="include\ibex.h" />
     <ClInclude Include="include\lighting\lighting.h" />
     <ClInclude Include="include\lighting\omniDirectionLight.h" />
+    <ClInclude Include="include\material\emerald.h" />
+    <ClInclude Include="include\material\gold.h" />
+    <ClInclude Include="include\material\material.h" />
+    <ClInclude Include="include\material\pearl.h" />
+    <ClInclude Include="include\material\plastic.h" />
     <ClInclude Include="include\mesh\grid.h" />
     <ClInclude Include="include\mesh\mesh.h" />
     <ClInclude Include="include\mesh\primitives\cube.h" />

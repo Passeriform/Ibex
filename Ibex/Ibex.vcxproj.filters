@@ -37,6 +37,9 @@
     <Filter Include="Header Files\lighting">
       <UniqueIdentifier>{d72c37df-10f6-4e26-b2b9-6ba797dcd9da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\material">
+      <UniqueIdentifier>{f0879a26-75ac-46ff-ada5-a235e7e54593}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Global\glad.c">
@@ -81,6 +84,21 @@
     <ClCompile Include="include\mesh\primitives\cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\material\material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\gold.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\emerald.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\pearl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\plastic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Workspace.ui">
@@ -96,6 +114,18 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="shaders\lightShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\phongMeshShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\phongMeshShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\materialShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\materialShader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -130,9 +160,6 @@
     <ClInclude Include="include\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\shader.h">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="include\mesh\primitives\square.h">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
@@ -144,6 +171,24 @@
     </ClInclude>
     <ClInclude Include="include\mesh\primitives\cube.h">
       <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material\material.h">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material\gold.h">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material\emerald.h">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material\pearl.h">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material\plastic.h">
+      <Filter>Header Files\material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
