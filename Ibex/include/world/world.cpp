@@ -21,6 +21,7 @@ World::World() {
 
 	lighting = LightingConfig{
 		0.1,										// ambientStrength
+		0.5,										// specularStrength
 		"shaders/lightShader.vert",					// vertexPath
 		"shaders/lightShader.frag"					// fragmentPath
 	};												// TODO: Provision for adding multiple selectable lighting shader.

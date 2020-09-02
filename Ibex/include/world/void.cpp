@@ -13,7 +13,7 @@ Void::Void() : World() {
 	this->addElement<Cube>();
 
 	this->addLighting<OmniDirectionLight>(
-		glm::vec3(1.0f, 1.0f, 1.0f),		// Origin
+		glm::vec3(0.6f, 0.0f, 0.8f),		// Origin
 		glm::vec3(1.0f, 1.0f, 1.0f)			// Light Color
 		);
 };
@@ -56,7 +56,10 @@ int Void::onTick() {
 
 	meshShader.use();
 
-	meshShader.setVec3("lightColor", lightSources[0]->getColor());	// Must run for all light sources (Testing with one).
+	// Set shader uniforms per pixel per draw cycle
+	meshShader.setVec3("viewPos", camera.instance.Position);
+	meshShader.setVec3("lightPos", lightSources[0]->getPosition());		// Must run for all light sources (Testing with one).
+	meshShader.setVec3("lightColor", lightSources[0]->getColor());		// Must run for all light sources (Testing with one).
 
 	glm::mat4 projection = glm::perspective(glm::radians(camera.instance.Zoom), (float)window.dim.first / (float)window.dim.second, 0.1f, 100.0f);
 	meshShader.setMat4("projection", projection);
@@ -70,6 +73,10 @@ int Void::onTick() {
 	if (world.showGrid) grid->draw();
 
 	for (auto element : elements) {
+		meshShader.setFloat("ambientStrength", lighting.ambientStrength);	// Add ambient strength to shader
+		meshShader.setFloat("specularStrength", lighting.specularStrength);	// Add specular strength to shader
+		meshShader.setFloat("shininess", lighting.shininess);				// Add shininess to shader
+
 		element->draw();
 	}
 

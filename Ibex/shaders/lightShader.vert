@@ -6,7 +6,7 @@ out vec3 objColor;
 
 uniform mat4 model, view, projection;
 uniform float delta;
-uniform float pointsize, minpointsize, maxpointsize;
+uniform float pointsize;
 uniform vec3 cameraeye;
 
 void main()

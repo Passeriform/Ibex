@@ -10,6 +10,7 @@ uniform vec3 viewPos;
 uniform vec3 lightColor;
 uniform float ambientStrength;
 uniform float specularStrength;
+uniform float shininess;
 
 void main()
 {
