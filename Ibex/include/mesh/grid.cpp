@@ -13,7 +13,7 @@ Grid::Grid(std::pair<int, int> dim, int gridSize, glm::vec3 color) : Mesh() {
 			float y = 0;
 			float z = (float)i;
 
-			vertices.push_back(Vertex(glm::vec3(x, y, z), color));
+			vertices.push_back(Vertex(glm::vec3(x, y, z), glm::vec3(0.0f, 0.0f, 0.0f), color));
 		}
 	}
 

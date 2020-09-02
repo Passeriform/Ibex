@@ -12,9 +12,10 @@
 class Vertex {
 public:
 	glm::vec3 position;
+	glm::vec3 normal;
 	glm::vec3 color;
 	Vertex(glm::vec3);
-	Vertex(glm::vec3, glm::vec3);
+	Vertex(glm::vec3, glm::vec3, glm::vec3);
 };
 
 class Mesh {
@@ -26,7 +27,7 @@ public:
 	Mesh();
 	Mesh(std::vector<Vertex>);
 	Mesh(std::vector<glm::vec3>);
-	Mesh(std::vector<glm::vec3>, std::vector<glm::vec3>);
+	Mesh(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec3>);
 	virtual int setupBuffers();
 	virtual int draw();
 	virtual int deleteBuffers();

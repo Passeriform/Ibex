@@ -3,20 +3,18 @@
 
 #include "triangle.h"
 
-Triangle::Triangle() : Mesh() {
-	vertices = {
-		/*             Position                           Color           */
-		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.0f,  0.0f,  0.5f)),
-		Vertex(glm::vec3(0.5f, -0.5f, -0.5f),  glm::vec3(0.2f,  0.3f,  1.0f)),
-		Vertex(glm::vec3(0.5f,  0.5f, -0.5f),  glm::vec3(0.3f,  0.6f,  0.5f))
-	};
-}
+Triangle::Triangle() : Mesh({
+	/*                Position                         Normal						    Color           */
+	Vertex(glm::vec3(-0.5f, -0.5f, -0.5f),	glm::vec3(0.0f,  0.0f,  1.0f),	glm::vec3(0.0f,  0.0f,  0.5f)),
+	Vertex(glm::vec3(0.5f,  -0.5f, -0.5f),	glm::vec3(0.0f,  0.0f,  1.0f),	glm::vec3(0.2f,  0.3f,  1.0f)),
+	Vertex(glm::vec3(0.5f,   0.5f, -0.5f),	glm::vec3(0.0f,  0.0f,  1.0f),	glm::vec3(0.3f,  0.6f,  0.5f))
+	}) { };
 
 Triangle::Triangle(std::vector<Vertex> vertices) : Mesh(vertices) { }
 
 Triangle::Triangle(std::vector<glm::vec3> rawVec) : Mesh(rawVec) { }
 
-Triangle::Triangle(std::vector<glm::vec3> posVec, std::vector<glm::vec3> colorVec) : Mesh(posVec, colorVec) { }
+Triangle::Triangle(std::vector<glm::vec3> posVec, std::vector<glm::vec3> normVec, std::vector<glm::vec3> colorVec) : Mesh(posVec, normVec, colorVec) { }
 
 int Triangle::setupBuffers() {
 	// Separate VAO for each component initialized only once
@@ -36,9 +34,13 @@ int Triangle::setupBuffers() {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// Bind color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+	// Bind normal attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 	glEnableVertexAttribArray(1);
+
+	// Bind color attribute
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+	glEnableVertexAttribArray(2);
 
 	// Unbind the VAO
 	glBindVertexArray(0);

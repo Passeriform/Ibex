@@ -1,6 +1,6 @@
 #include "void.h"
-#include "mesh/primitives/cube.h"
 #include "lighting/omniDirectionLight.h"
+#include "mesh/primitives/cube.h"
 
 Void::Void() : World() {
 	world.backgroundColor = glm::vec4(42.0f / 255.0f, 0.0f / 255.0f, 41.0f / 255.0f, 1.0f);
@@ -58,17 +58,18 @@ int Void::onTick() {
 
 	// Set shader uniforms per pixel per draw cycle
 	meshShader.setVec3("viewPos", camera.instance.Position);
-	meshShader.setVec3("lightPos", lightSources[0]->getPosition());		// Must run for all light sources (Testing with one).
-	meshShader.setVec3("lightColor", lightSources[0]->getColor());		// Must run for all light sources (Testing with one).
+
+	meshShader.setVec3("light.position", lightSources[0]->getPosition());
+	meshShader.setVec3("light.ambient", lightSources[0]->getAmbientColor());
+	meshShader.setVec3("light.diffuse", lightSources[0]->getDiffuseColor());
+	meshShader.setVec3("light.specular", lightSources[0]->getSpecularColor());
 
 	glm::mat4 projection = glm::perspective(glm::radians(camera.instance.Zoom), (float)window.dim.first / (float)window.dim.second, 0.1f, 100.0f);
-	meshShader.setMat4("projection", projection);
-
 	glm::mat4 view = camera.instance.GetViewMatrix();
-	meshShader.setMat4("view", view);
-
 	glm::mat4 model = glm::mat4(1.0f);
 	meshShader.setMat4("model", model);
+	meshShader.setMat4("view", view);
+	meshShader.setMat4("projection", projection);
 
 	if (world.showGrid) grid->draw();
 
