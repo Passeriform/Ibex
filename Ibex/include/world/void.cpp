@@ -1,6 +1,7 @@
 #include "void.h"
 #include "lighting/omniDirectionLight.h"
 #include "mesh/primitives/cube.h"
+#include "material/emerald.h"
 
 Void::Void() : World() {
 	world.backgroundColor = glm::vec4(42.0f / 255.0f, 0.0f / 255.0f, 41.0f / 255.0f, 1.0f);
@@ -10,10 +11,10 @@ Void::Void() : World() {
 	camera.origin = glm::vec3(0.0f, 1.0f, 3.0f);
 	camera.instance = Camera(camera.origin);
 
-	this->addElement<Cube>();
+	this->addElement<Cube>(new Emerald());		// Loading Gold material over a Cube mesh
 
 	this->addLighting<OmniDirectionLight>(
-		glm::vec3(0.6f, 0.0f, 0.8f),		// Origin
+		glm::vec3(0.8f, 1.4f, 2.0f),		// Origin
 		glm::vec3(1.0f, 1.0f, 1.0f)			// Light Color
 		);
 };
@@ -67,6 +68,7 @@ int Void::onTick() {
 	glm::mat4 projection = glm::perspective(glm::radians(camera.instance.Zoom), (float)window.dim.first / (float)window.dim.second, 0.1f, 100.0f);
 	glm::mat4 view = camera.instance.GetViewMatrix();
 	glm::mat4 model = glm::mat4(1.0f);
+
 	meshShader.setMat4("model", model);
 	meshShader.setMat4("view", view);
 	meshShader.setMat4("projection", projection);
@@ -74,9 +76,11 @@ int Void::onTick() {
 	if (world.showGrid) grid->draw();
 
 	for (auto element : elements) {
-		meshShader.setFloat("ambientStrength", lighting.ambientStrength);	// Add ambient strength to shader
-		meshShader.setFloat("specularStrength", lighting.specularStrength);	// Add specular strength to shader
-		meshShader.setFloat("shininess", lighting.shininess);				// Add shininess to shader
+		// Set material parameters per element
+		meshShader.setVec3("material.ambient", element->material->ambient);	// Add ambient strength to shader
+		meshShader.setVec3("material.diffuse", element->material->diffuse);	// Add diffuse strength to shader
+		meshShader.setVec3("material.specular", element->material->specular);	// Add specular strength to shader
+		meshShader.setFloat("material.shininess", element->material->shininess);		// Add shininess to shader
 
 		element->draw();
 	}

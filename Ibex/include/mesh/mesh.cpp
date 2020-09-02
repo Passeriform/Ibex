@@ -5,6 +5,10 @@
 
 Mesh::Mesh() { }
 
+Mesh::Mesh(Material* material) : Mesh() {
+	this->material = material;
+}
+
 Mesh::Mesh(std::vector<Vertex> vertices) : vertices(vertices) { }
 
 Mesh::Mesh(std::vector<glm::vec3> rawVecVertices) {

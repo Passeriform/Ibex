@@ -9,6 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <material/material.h>
+
 class Vertex {
 public:
 	glm::vec3 position;
@@ -24,7 +26,10 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector<glm::vec3> locations;
 
+	Material* material;
+
 	Mesh();
+	Mesh(Material*);
 	Mesh(std::vector<Vertex>);
 	Mesh(std::vector<glm::vec3>);
 	Mesh(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec3>);

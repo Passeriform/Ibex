@@ -32,7 +32,6 @@ struct WorldConfig {
 };
 
 struct LightingConfig {
-	float ambientStrength;
 	const char* vertexPath;
 	const char* fragmentPath;
 };
