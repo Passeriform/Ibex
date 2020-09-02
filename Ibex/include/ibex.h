@@ -28,8 +28,8 @@ namespace Ibex {
 		int tick();
 		int dump();
 		template <typename WT>
-		int loadWorld(WT world) {
-			activeWorld = &world;
+		int loadWorld(WT* world) {
+			activeWorld = world;
 			return 0;
 		}
 	};
