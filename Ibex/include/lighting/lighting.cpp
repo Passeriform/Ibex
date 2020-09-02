@@ -30,6 +30,22 @@ int Lighting::deleteShadersAndBuffers() {
 	return 0;
 }
 
+glm::vec3 Lighting::getPosition() {
+	return lightSource.origin;
+}
+
 glm::vec3 Lighting::getColor() {
 	return lightSource.color;
+}
+
+glm::vec3 Lighting::getAmbientColor() {
+	return getDiffuseColor() * glm::vec3(0.2f);
+}
+
+glm::vec3 Lighting::getDiffuseColor() {
+	return lightSource.color * glm::vec3(0.5f);
+}
+
+glm::vec3 Lighting::getSpecularColor() {
+	return glm::vec3(1.0f, 1.0f, 1.0f);
 }

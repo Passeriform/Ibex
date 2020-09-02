@@ -23,7 +23,11 @@ public:
 	Lighting();
 	Lighting(LightSource light);
 	Lighting(glm::vec3, glm::vec3);
+	virtual glm::vec3 getPosition();
 	virtual glm::vec3 getColor();
+	virtual glm::vec3 getAmbientColor();
+	virtual glm::vec3 getDiffuseColor();
+	virtual glm::vec3 getSpecularColor();
 	virtual int setupShaders();
 	virtual int draw(Camera*, std::pair<double, double>);
 	virtual int deleteShadersAndBuffers();
