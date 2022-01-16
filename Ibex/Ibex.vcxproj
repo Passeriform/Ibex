@@ -23,6 +23,7 @@
     <ClCompile Include="include\material\material_registry.cpp" />
     <ClCompile Include="include\mesh\vertex.cpp" />
     <ClCompile Include="include\model\model.cpp" />
+    <ClCompile Include="include\shader\shader.cpp" />
     <ClCompile Include="include\shader\texture.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="vendor\glad\glad.c" />

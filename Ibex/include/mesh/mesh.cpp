@@ -101,8 +101,6 @@ int Mesh::setupBuffers() {
 	glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Weights));
 	*/
 
-	glBindVertexArray(0);
-
 	/*								Cleanup												*/
 	/* -------------------------------------------------------------------------------- */
 

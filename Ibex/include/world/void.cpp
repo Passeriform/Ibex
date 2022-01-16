@@ -84,32 +84,27 @@ int Void::onTick() {
 	glm::mat4 view = camera.instance.GetViewMatrix();
 	glm::mat4 model = glm::mat4(1.0f);
 
-	// Using grid shaders
-	gridShader.use();
-
-	// Set lighting-based uniforms per pixel per draw cycle
-	gridShader.setVec3("viewPos", camera.instance.Position);
-
-	// Setting model, view and projection matrices in the shader
-	gridShader.setMat4("model", model);
-	gridShader.setMat4("view", view);
-	gridShader.setMat4("projection", projection);
-
 	// Draw grid
-	if (world.showGrid) grid->draw();
+	if (world.showGrid) {
+		// Using grid shaders
+		gridShader.use();
+
+		// Set lighting-based uniforms per pixel per draw cycle
+		gridShader.setVec3("viewPos", camera.instance.Position);
+
+		// Setting model, view and projection matrices in the shader
+		gridShader.setMat4("model", model);
+		gridShader.setMat4("view", view);
+		gridShader.setMat4("projection", projection);
+
+		grid->draw();
+	}
 
 	// Using mesh shaders
 	meshShader.use();
 
 	// Set lighting-based uniforms per pixel per draw cycle
 	meshShader.setVec3("viewPos", camera.instance.Position);
-
-	// Sending lighting parameters to mesh shader
-	// Must run for all light sources (Testing with one)
-	meshShader.setVec3("light.position", lightSources[0]->getPosition());
-	meshShader.setVec3("light.ambient", lightSources[0]->getAmbientColor());
-	meshShader.setVec3("light.diffuse", lightSources[0]->getDiffuseColor());
-	meshShader.setVec3("light.specular", lightSources[0]->getSpecularColor());
 
 	// Setting model, view and projection matrices in the shader
 	meshShader.setMat4("model", model);
@@ -122,16 +117,15 @@ int Void::onTick() {
 		// Set material parameters per element
 		meshShader.setVec3("material.ambient", lightMap.ambient);		// Add ambient strength to shader
 
-		// Add explicit diffuse and specular strengths to shader
-		if (element->material->isTextured()) {
-			meshShader.setVec3("material.diffuse", lightMap.diffuse);
-			meshShader.setVec3("material.specular", lightMap.specular);
-		}
-
 		// Set offset layout pointer for registered textures
-		else {
+		if (element->material->isTextured()) {
 			meshShader.setInt("material.diffuse", 0);
 			meshShader.setInt("material.specular", 1);
+		}
+		// Add explicit diffuse and specular strengths to shader
+		else {
+			meshShader.setVec3("material.diffuse", lightMap.diffuse);
+			meshShader.setVec3("material.specular", lightMap.specular);
 		}
 
 		meshShader.setFloat("material.shininess", lightMap.shininess);	// Add shininess to shader
@@ -141,6 +135,12 @@ int Void::onTick() {
 
 	// Draw all light sources
 	for (auto light : lightSources) {
+		// Sending lighting parameters to mesh shader
+		meshShader.setVec3("light.position", light->getPosition());
+		meshShader.setVec3("light.ambient", light->getAmbientColor());
+		meshShader.setVec3("light.diffuse", light->getDiffuseColor());
+		meshShader.setVec3("light.specular", light->getSpecularColor());
+
 		light->draw(&camera.instance, window.dim);
 	}
 
