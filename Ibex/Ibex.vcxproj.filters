@@ -109,9 +109,6 @@
     <ClCompile Include="include\mesh\primitives\cube.cpp">
       <Filter>Source\Mesh\Primitives</Filter>
     </ClCompile>
-    <ClCompile Include="include\mesh\primitives\triangle.cpp">
-      <Filter>Source\Mesh\Primitives</Filter>
-    </ClCompile>
     <ClCompile Include="include\ibex.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -157,6 +154,12 @@
     </ClCompile>
     <ClCompile Include="vendor\glad\glad.c">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="include\shader\shader.cpp">
+      <Filter>Source\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="include\mesh\primitives\triangle.cpp">
+      <Filter>Source\Mesh\Primitives</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
