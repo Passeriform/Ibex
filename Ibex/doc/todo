@@ -1,6 +1,0 @@
-☐ Dedicated grid shader
-☐ Before commit
-  ☐ Check all header files to have include guards
-  ☐ Minimize include directives to bare minimum
-  ☐ Every header file must have `#pragma once`
-  ☐ 
