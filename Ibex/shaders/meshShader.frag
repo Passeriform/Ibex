@@ -2,8 +2,8 @@
 out vec4 outColor;
   
 in vec3 fragPos;
-in vec3 objColor;
 in vec3 objNormal;
+in vec3 objColor;
 
 struct Material {
     vec3 ambient;
