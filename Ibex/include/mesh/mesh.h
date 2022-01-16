@@ -27,6 +27,8 @@ public:
 	Mesh(std::vector<Vertex>, std::vector<unsigned int>);
 	Mesh(std::vector<Vertex>, std::vector<unsigned int>, Material*);
 
+	int setFlatColor(glm::vec3);
+
 	virtual int setupBuffers();
 	virtual int draw();
 	virtual int deleteBuffers();

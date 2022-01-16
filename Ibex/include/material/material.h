@@ -32,6 +32,7 @@ public:
 	Material(MaterialLightMap, std::vector<Texture*>);
 	Material(MaterialType, std::vector<Texture*>);
 
+	bool isTextured();
 	int setupBuffers();
 };
 

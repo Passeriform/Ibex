@@ -9,14 +9,7 @@ Mesh::Mesh() :
 	EBO(-1),
 	vertices({}),
 	locations({}),
-	material(new Material(
-		MaterialLightMap{
-			glm::vec3(1.0f, 1.0f, 1.0f),
-			glm::vec3(1.0f, 1.0f, 1.0f),
-			glm::vec3(1.0f, 1.0f, 1.0f),
-			40.0f
-		}
-	))
+	material(new Material())
 { }
 
 Mesh::Mesh(Material* material) : Mesh() {
@@ -34,6 +27,14 @@ Mesh::Mesh(
 	Material* material
 ) : Mesh(vertices, locations) {
 	this->material = material;
+}
+
+int Mesh::setFlatColor(glm::vec3 flatColor) {
+	for (int i = 0; i < vertices.size(); i++) {
+		vertices[i].color = flatColor;
+	}
+
+	return 0;
 }
 
 int Mesh::setupBuffers() {

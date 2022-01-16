@@ -29,6 +29,10 @@ Material::Material(MaterialLightMap materialLightMap, std::vector<Texture*> text
 
 Material::Material(MaterialType materialType, std::vector<Texture*> textures) : Material(MATERIAL_REGISTRY[materialType], textures) { }
 
+bool Material::isTextured() {
+	return textures.size();
+}
+
 int Material::setupBuffers() {
 	unsigned int textureIndex = 0;
 	for (auto texture : textures) {

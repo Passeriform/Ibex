@@ -1,7 +1,7 @@
 #include <lighting/omni_direction_light.h>
 #include <model/model.h>
 #include <mesh/primitives/cube.h>
-#include <material/emerald.h>
+#include <material/material.h>
 
 #include "void.h"
 
@@ -20,7 +20,8 @@ Void::Void() : World() {
 	// this->addElement<Model>(Model(path));
 
 	// Add all mesh elements
-	this->addElement<Cube>(new Emerald(
+	this->addElement<Cube>(new Material(
+		MATERIAL_REGISTRY[MaterialType::EMERALD],
 		{
 			new Texture("resources/textures/wooden_box.png"),
 			new Texture("resources/textures/wooden_box_specular.png"),
@@ -121,17 +122,17 @@ int Void::onTick() {
 		// Set material parameters per element
 		meshShader.setVec3("material.ambient", lightMap.ambient);		// Add ambient strength to shader
 
-		// TODO: Shove the next lines into loading diffuseMap
-		// meshShader.setVec3("material.diffuse", lightMap.specular);						// Add diffuse strength to shader
-		meshShader.setInt("material.diffuse", 0);						// Add diffuse strength to shader
-		// glActiveTexture(GL_TEXTURE0);
-		// glBindTexture(GL_TEXTURE_2D, diffuseMap);
+		// Add explicit diffuse and specular strengths to shader
+		if (element->material->isTextured()) {
+			meshShader.setVec3("material.diffuse", lightMap.diffuse);
+			meshShader.setVec3("material.specular", lightMap.specular);
+		}
 
-		// TODO: Shove the next lines into loading diffuseMap
-		// meshShader.setVec3("material.specular", lightMap.specular);		// Add specular strength to shader
-		meshShader.setInt("material.specular", 1);
-		// glActiveTexture(GL_TEXTURE0);
-		// glBindTexture(GL_TEXTURE_2D, diffuseMap);
+		// Set offset layout pointer for registered textures
+		else {
+			meshShader.setInt("material.diffuse", 0);
+			meshShader.setInt("material.specular", 1);
+		}
 
 		meshShader.setFloat("material.shininess", lightMap.shininess);	// Add shininess to shader
 
