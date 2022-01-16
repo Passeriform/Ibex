@@ -55,16 +55,8 @@
     <ClCompile Include="include\mesh\primitives\triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\material\emerald.h" />
-    <ClCompile Include="include\material\emerald.cpp" />
-    <ClInclude Include="include\material\gold.h" />
-    <ClCompile Include="include\material\gold.cpp" />
     <ClInclude Include="include\material\material.h" />
     <ClCompile Include="include\material\material.cpp" />
-    <ClInclude Include="include\material\pearl.h" />
-    <ClCompile Include="include\material\pearl.cpp" />
-    <ClInclude Include="include\material\plastic.h" />
-    <ClCompile Include="include\material\plastic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\lighting\lighting.h" />

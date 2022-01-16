@@ -44,18 +44,6 @@
     <Filter Include="Source\Material">
       <UniqueIdentifier>{e10937fc-ef85-4e4d-ae0c-314bde3e4c06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Material\Emerald">
-      <UniqueIdentifier>{cac6e55f-418f-4552-bf02-4b1c84ac6ed9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Material\Plastic">
-      <UniqueIdentifier>{de11e09b-025f-407f-8cb7-39a36a8900b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Material\Pearl">
-      <UniqueIdentifier>{301b6521-66b5-4aa9-9f4b-2d7f84c076d1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Material\Gold">
-      <UniqueIdentifier>{291f4200-2b99-4d55-812e-b7bea15ab173}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Lighting">
       <UniqueIdentifier>{91348a64-0496-4cbd-a20d-10d007851b82}</UniqueIdentifier>
     </Filter>
@@ -139,20 +127,8 @@
     <ClCompile Include="gui\ui.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="include\material\emerald.cpp">
-      <Filter>Source\Material\Emerald</Filter>
-    </ClCompile>
     <ClCompile Include="include\material\material.cpp">
       <Filter>Source\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="include\material\gold.cpp">
-      <Filter>Source\Material\Gold</Filter>
-    </ClCompile>
-    <ClCompile Include="include\material\pearl.cpp">
-      <Filter>Source\Material\Pearl</Filter>
-    </ClCompile>
-    <ClCompile Include="include\material\plastic.cpp">
-      <Filter>Source\Material\Plastic</Filter>
     </ClCompile>
     <ClCompile Include="include\lighting\lighting.cpp">
       <Filter>Source\Lighting</Filter>
@@ -205,20 +181,8 @@
     <ClInclude Include="include\mesh\grid.h">
       <Filter>Source\Mesh\Grid</Filter>
     </ClInclude>
-    <ClInclude Include="include\material\emerald.h">
-      <Filter>Source\Material\Emerald</Filter>
-    </ClInclude>
     <ClInclude Include="include\material\material.h">
       <Filter>Source\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="include\material\gold.h">
-      <Filter>Source\Material\Gold</Filter>
-    </ClInclude>
-    <ClInclude Include="include\material\pearl.h">
-      <Filter>Source\Material\Pearl</Filter>
-    </ClInclude>
-    <ClInclude Include="include\material\plastic.h">
-      <Filter>Source\Material\Plastic</Filter>
     </ClInclude>
     <ClInclude Include="include\lighting\lighting.h">
       <Filter>Source\Lighting</Filter>
