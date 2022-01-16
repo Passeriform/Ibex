@@ -1,10 +1,15 @@
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+#include <mesh/mesh.h>
+#include <events/listeners.h>
+
 #include "ibex.h"
-#include "events/listeners.h"
 
 using namespace Ibex;
 
 Engine::Engine() : dumped(false) { };
-
 
 int Engine::init() {
 	// Window dimensions

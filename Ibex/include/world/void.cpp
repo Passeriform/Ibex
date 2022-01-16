@@ -1,7 +1,9 @@
+#include <lighting/omni_direction_light.h>
+#include <model/model.h>
+#include <mesh/primitives/cube.h>
+#include <material/emerald.h>
+
 #include "void.h"
-#include "lighting/omniDirectionLight.h"
-#include "mesh/primitives/cube.h"
-#include "material/emerald.h"
 
 Void::Void() : World() {
 	// World config setup
@@ -13,13 +15,25 @@ Void::Void() : World() {
 	camera.origin = glm::vec3(0.0f, 1.0f, 3.0f);
 	camera.instance = Camera(camera.origin);
 
+	// Load model
+	// std::string path = "resources/models/crisis.assimp";
+	// this->addElement<Model>(Model(path));
+
 	// Add all mesh elements
-	this->addElement<Cube>(new Emerald());		// Loading Gold material over a Cube mesh
+	this->addElement<Cube>(new Emerald(
+		{
+			new Texture("resources/textures/wooden_box.png"),
+			new Texture("resources/textures/wooden_box_specular.png"),
+		}
+	));		// Loading Emerald material with container texture over a Cube mesh
 
 	// Add lights after mesh elements for consistency
 	this->addLighting<OmniDirectionLight>(
 		glm::vec3(0.8f, 1.4f, 2.0f),		// Origin
-		glm::vec3(1.0f, 1.0f, 1.0f)			// Light Color
+		glm::vec3(1.0f, 1.0f, 1.0f),		// Light Color
+		glm::vec3(0.2f),				// Ambient Factor
+		glm::vec3(0.5f),				// Diffuse Factor
+		glm::vec3(1.0f)					// Specular Factor
 		);
 };
 
@@ -33,7 +47,8 @@ int Void::load() {
 	grid = new Grid(window.dim, world.gridSize, world.gridColor);
 
 	// Shader must be created only after GLAD is loaded by engine
-	meshShader = Shader("shaders/meshShader.vert", "shaders/meshShader.frag");
+	meshShader = Shader("shaders/materialShader.vert", "shaders/materialShader.frag");
+	gridShader = Shader("shaders/gridShader.vert", "shaders/gridShader.frag");
 
 	// Setup grid buffers
 	grid->setupBuffers();
@@ -63,6 +78,26 @@ int Void::onTick() {
 	// Clearing color and depth buffer each cycle
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// Setting up model, view and projection matrices
+	glm::mat4 projection = glm::perspective(glm::radians(camera.instance.Zoom), (float)window.dim.first / (float)window.dim.second, 0.1f, 100.0f);
+	glm::mat4 view = camera.instance.GetViewMatrix();
+	glm::mat4 model = glm::mat4(1.0f);
+
+	// Using grid shaders
+	gridShader.use();
+
+	// Set lighting-based uniforms per pixel per draw cycle
+	gridShader.setVec3("viewPos", camera.instance.Position);
+
+	// Setting model, view and projection matrices in the shader
+	gridShader.setMat4("model", model);
+	gridShader.setMat4("view", view);
+	gridShader.setMat4("projection", projection);
+
+	// Draw grid
+	if (world.showGrid) grid->draw();
+
+	// Using mesh shaders
 	meshShader.use();
 
 	// Set lighting-based uniforms per pixel per draw cycle
@@ -75,26 +110,30 @@ int Void::onTick() {
 	meshShader.setVec3("light.diffuse", lightSources[0]->getDiffuseColor());
 	meshShader.setVec3("light.specular", lightSources[0]->getSpecularColor());
 
-	// Setting up model, view and projection matrices
-	glm::mat4 projection = glm::perspective(glm::radians(camera.instance.Zoom), (float)window.dim.first / (float)window.dim.second, 0.1f, 100.0f);
-	glm::mat4 view = camera.instance.GetViewMatrix();
-	glm::mat4 model = glm::mat4(1.0f);
-
 	// Setting model, view and projection matrices in the shader
 	meshShader.setMat4("model", model);
 	meshShader.setMat4("view", view);
 	meshShader.setMat4("projection", projection);
 
-	// Draw grid first to minimize the shader swap
-	if (world.showGrid) grid->draw();
-
 	// Draw all elements
 	for (auto element : elements) {
+		MaterialLightMap lightMap = element->material->materialLightMap;
 		// Set material parameters per element
-		meshShader.setVec3("material.ambient", element->material->ambient);	// Add ambient strength to shader
-		meshShader.setVec3("material.diffuse", element->material->diffuse);	// Add diffuse strength to shader
-		meshShader.setVec3("material.specular", element->material->specular);	// Add specular strength to shader
-		meshShader.setFloat("material.shininess", element->material->shininess);		// Add shininess to shader
+		meshShader.setVec3("material.ambient", lightMap.ambient);		// Add ambient strength to shader
+
+		// TODO: Shove the next lines into loading diffuseMap
+		// meshShader.setVec3("material.diffuse", lightMap.specular);						// Add diffuse strength to shader
+		meshShader.setInt("material.diffuse", 0);						// Add diffuse strength to shader
+		// glActiveTexture(GL_TEXTURE0);
+		// glBindTexture(GL_TEXTURE_2D, diffuseMap);
+
+		// TODO: Shove the next lines into loading diffuseMap
+		// meshShader.setVec3("material.specular", lightMap.specular);		// Add specular strength to shader
+		meshShader.setInt("material.specular", 1);
+		// glActiveTexture(GL_TEXTURE0);
+		// glBindTexture(GL_TEXTURE_2D, diffuseMap);
+
+		meshShader.setFloat("material.shininess", lightMap.shininess);	// Add shininess to shader
 
 		element->draw();
 	}

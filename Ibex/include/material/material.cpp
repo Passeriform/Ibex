@@ -1,17 +1,36 @@
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #include "material.h"
 
 Material::Material() :
-	ambient(glm::vec3(0.05f, 0.05f, 0.05f)),
-	diffuse(glm::vec3(0.5f, 0.5f, 0.5f)),
-	specular(glm::vec3(0.7f, 0.7f, 0.7f)),
-	shininess(10) { }
+	materialLightMap(
+		{
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			40.0f
+		}
+	)
+{ }
 
-Material::Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shine) :
-	ambient(ambient),
-	diffuse(diffuse),
-	specular(specular),
-	shininess(shine) { }
+Material::Material(std::vector<Texture*> textures) : Material() {
+	this->textures = textures;
+}
+
+Material::Material(MaterialLightMap materialLightMap) : Material() {
+	this->materialLightMap = materialLightMap;
+}
+
+Material::Material(MaterialLightMap materialLightMap, std::vector<Texture*> textures) : Material(materialLightMap) {
+	this->textures = textures;
+}
+
+int Material::setupBuffers() {
+	unsigned int textureIndex = 0;
+	for (auto texture : textures) {
+		texture->load(textureIndex);
+		++textureIndex;
+	}
+
+	return 0;
+}

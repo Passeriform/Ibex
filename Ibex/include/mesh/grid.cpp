@@ -1,12 +1,13 @@
-#include "grid.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include "grid.h"
 
 Grid::Grid(std::pair<int, int> dim, int gridSize, glm::vec3 color) : Mesh() {
 	int slicex = dim.first / (float)gridSize;
 	int slicey = dim.second / (float)gridSize;
 
+	// vertex positions
 	for (int i = -(slicey / 2); i < (slicey / 2); i++) {
 		for (int j = -(slicex / 2); j < (slicex / 2); j++) {
 			float x = (float)j;
@@ -17,60 +18,40 @@ Grid::Grid(std::pair<int, int> dim, int gridSize, glm::vec3 color) : Mesh() {
 		}
 	}
 
+	// vertex indices
+	// Insert left and top line for each row till second from bottom.
 	for (int i = 0; i < slicey - 1; i++) {
 		for (int j = 0; j < slicex - 1; j++) {
-			int topLeft = (i * (slicex)) + j;
-			int topRight = topLeft + 1;
+			unsigned int topLeft = (i * (slicex)) + j;
+			unsigned int topRight = topLeft + 1;
+			unsigned int bottomLeft = topLeft + slicex;
 
-			int bottomLeft = ((i + 1) * (slicex)) + j;
-			int bottomRight = bottomLeft + 1;
+			std::vector<unsigned int> lineIndices = {
+				topRight, topLeft,			// Top line
+				topLeft, bottomLeft,		// Left line
+			};
 
-			// Top-Right triangle
-			indices.push_back(glm::uvec4(topLeft, topRight, topRight, bottomRight));
-			// Bottom-Left triangle
-			indices.push_back(glm::uvec4(bottomRight, bottomLeft, bottomLeft, topLeft));
+			locations.insert(locations.end(), lineIndices.begin(), lineIndices.end());
 		}
+
+		// Insert right line for each row's last column.
+		unsigned int topRight = (((i + 1) * slicex) - 1);
+		unsigned int bottomRight = topRight + slicex;
+		locations.insert(locations.end(), { bottomRight , topRight });
 	}
-}
 
-int Grid::setupBuffers() {
-	// Separate VAO for each component initialized only once
-	glGenVertexArrays(1, &VAO);
+	// Insert bottom line for bottom row.
+	for (int j = 0; j < slicex - 1; j++) {
+		unsigned int bottomLeft = ((slicey - 1) * slicex) + j;
+		unsigned int bottomRight = bottomLeft + 1;
 
-	// Bind the VAO
-	glBindVertexArray(VAO);
-
-	// Generate VBO for the component
-	glGenBuffers(1, &VBO);
-
-	// Bind the VBO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
-
-	// Bind vertex position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	// Bind color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
-	glEnableVertexAttribArray(1);
-
-	// Generate IBO for the grid
-	glGenBuffers(1, &IBO);
-
-	// Bind the IBO
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(glm::uvec4), indices.data(), GL_STATIC_DRAW);
-
-	// Unbind the VAO
-	glBindVertexArray(0);
-
-	return 0;
+		locations.insert(locations.end(), { bottomLeft, bottomRight });
+	}
 }
 
 int Grid::draw() {
 	glBindVertexArray(VAO);
-	glDrawElements(GL_LINES, indices.size() * 4, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_LINES, locations.size(), GL_UNSIGNED_INT, NULL);
 	glBindVertexArray(0);
 
 	return 0;

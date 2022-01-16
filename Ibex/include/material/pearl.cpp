@@ -1,10 +1,10 @@
 #include "pearl.h"
+#include "material_registry.h"
 
-Pearl::Pearl() : Material(
-	glm::vec3(0.25f, 0.20725f, 0.20725f),
-	glm::vec3(1.0f, 0.829f, 0.829f),
-	glm::vec3(0.296648f, 0.296648f, 0.296648f),
-	11.264f
-) { }
+Pearl::Pearl() : Material(MATERIAL_REGISTRY[MaterialType::PEARL]) { }
 
-Pearl::Pearl(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shine) : Material(ambient, diffuse, specular, shine) { }
+Pearl::Pearl(std::vector<Texture*> textures) : Material(textures) { }
+
+Pearl::Pearl(MaterialLightMap materialLightMap) : Material(materialLightMap) { }
+
+Pearl::Pearl(MaterialLightMap materialLightMap, std::vector<Texture*> textures) : Material(materialLightMap, textures) { }

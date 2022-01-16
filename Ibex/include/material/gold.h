@@ -8,7 +8,9 @@
 class Gold : public Material {
 public:
 	Gold();
-	Gold(glm::vec3, glm::vec3, glm::vec3, float);
+	Gold(std::vector<Texture*>);
+	Gold(MaterialLightMap);
+	Gold(MaterialLightMap, std::vector<Texture*>);
 };
 
 #endif

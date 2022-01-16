@@ -3,18 +3,30 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#include <vector>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <shader/texture.h>
+#include <utility/utility.h>
 
-class Material {
-public:
+struct MaterialLightMap {
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
 	glm::vec3 specular;
 	float shininess;
+};
+
+class Material {
+	std::vector<Texture*> textures;
+
+public:
+	MaterialLightMap materialLightMap;
+
 	Material();
-	Material(glm::vec3, glm::vec3, glm::vec3, float);
+	Material(std::vector<Texture*>);
+	Material(MaterialLightMap);
+	Material(MaterialLightMap, std::vector<Texture*>);
+
+	int setupBuffers();
 };
 
 #endif

@@ -1,10 +1,10 @@
 #include "plastic.h"
+#include "material_registry.h"
 
-Plastic::Plastic() : Material(
-	glm::vec3(0.0f, 0.0f, 0.0f),
-	glm::vec3(0.55f, 0.55f, 0.55f),
-	glm::vec3(0.70f, 0.70f, 0.70f),
-	51.2
-) { }
+Plastic::Plastic() : Material(MATERIAL_REGISTRY[MaterialType::PLASTIC]) { }
 
-Plastic::Plastic(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shine) : Material(ambient, diffuse, specular, shine) { }
+Plastic::Plastic(std::vector<Texture*> textures) : Material(textures) { }
+
+Plastic::Plastic(MaterialLightMap materialLightMap) : Material(materialLightMap) { }
+
+Plastic::Plastic(MaterialLightMap materialLightMap, std::vector<Texture*> textures) : Material(materialLightMap, textures) { }

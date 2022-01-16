@@ -19,27 +19,68 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Global\glad.c" />
-    <ClCompile Include="gui\ui.cpp" />
-    <ClCompile Include="include\events\events.cpp" />
+    <ClCompile Include="include\camera\camera.cpp" />
+    <ClCompile Include="include\material\material_registry.cpp" />
+    <ClCompile Include="include\mesh\vertex.cpp" />
+    <ClCompile Include="include\model\model.cpp" />
+    <ClCompile Include="include\shader\texture.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="vendor\glad\glad.c" />
+    <ClInclude Include="include\camera\camera.h" />
+    <ClInclude Include="include\constants.h" />
+    <ClInclude Include="include\ibex.h" />
     <ClCompile Include="include\ibex.cpp" />
-    <ClCompile Include="include\lighting\lighting.cpp" />
-    <ClCompile Include="include\lighting\omniDirectionLight.cpp" />
-    <ClCompile Include="include\material\emerald.cpp" />
-    <ClCompile Include="include\material\gold.cpp" />
-    <ClCompile Include="include\material\material.cpp" />
-    <ClCompile Include="include\material\pearl.cpp" />
-    <ClCompile Include="include\material\plastic.cpp" />
-    <ClCompile Include="include\mesh\grid.cpp" />
-    <ClCompile Include="include\mesh\mesh.cpp" />
-    <ClCompile Include="include\mesh\primitives\cube.cpp" />
-    <ClCompile Include="include\mesh\primitives\square.cpp" />
-    <ClCompile Include="include\mesh\primitives\triangle.cpp" />
-    <ClCompile Include="include\world\void.cpp" />
-    <ClCompile Include="include\world\world.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClInclude Include="include\material\material_registry.h" />
+    <ClInclude Include="include\mesh\vertex.h" />
+    <ClInclude Include="include\model\model.h" />
+    <ClInclude Include="include\shader\shader.h" />
+    <ClInclude Include="include\shader\texture.h" />
+    <ClInclude Include="include\utility\gl_error_logger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\utility\utility.h" />
+    <ClInclude Include="include\world\void.h" />
+    <ClCompile Include="include\world\void.cpp" />
+    <ClInclude Include="include\world\world.h" />
+    <ClCompile Include="include\world\world.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\mesh\grid.h" />
+    <ClCompile Include="include\mesh\grid.cpp" />
+    <ClInclude Include="include\mesh\mesh.h" />
+    <ClCompile Include="include\mesh\mesh.cpp" />
+    <ClInclude Include="include\mesh\primitives\cube.h" />
+    <ClCompile Include="include\mesh\primitives\cube.cpp" />
+    <ClInclude Include="include\mesh\primitives\triangle.h" />
+    <ClCompile Include="include\mesh\primitives\triangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\material\emerald.h" />
+    <ClCompile Include="include\material\emerald.cpp" />
+    <ClInclude Include="include\material\gold.h" />
+    <ClCompile Include="include\material\gold.cpp" />
+    <ClInclude Include="include\material\material.h" />
+    <ClCompile Include="include\material\material.cpp" />
+    <ClInclude Include="include\material\pearl.h" />
+    <ClCompile Include="include\material\pearl.cpp" />
+    <ClInclude Include="include\material\plastic.h" />
+    <ClCompile Include="include\material\plastic.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\lighting\lighting.h" />
+    <ClCompile Include="include\lighting\lighting.cpp" />
+    <ClInclude Include="include\lighting\omni_direction_light.h" />
+    <ClCompile Include="include\lighting\omni_direction_light.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\events\listeners.h" />
+    <ClInclude Include="include\events\events.h" />
+    <ClCompile Include="include\events\events.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="shaders\gridShader.frag" />
+    <None Include="shaders\gridShader.vert" />
     <None Include="shaders\lightShader.frag" />
     <None Include="shaders\lightShader.vert" />
     <None Include="shaders\materialShader.frag" />
@@ -48,29 +89,10 @@
     <None Include="shaders\meshShader.vert" />
     <None Include="shaders\phongMeshShader.frag" />
     <None Include="shaders\phongMeshShader.vert" />
-    <None Include="Workspace.ui" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\camera.h" />
-    <ClInclude Include="include\events\events.h" />
-    <ClInclude Include="include\events\listeners.h" />
-    <ClInclude Include="include\glErrorLogger.h" />
-    <ClInclude Include="include\ibex.h" />
-    <ClInclude Include="include\lighting\lighting.h" />
-    <ClInclude Include="include\lighting\omniDirectionLight.h" />
-    <ClInclude Include="include\material\emerald.h" />
-    <ClInclude Include="include\material\gold.h" />
-    <ClInclude Include="include\material\material.h" />
-    <ClInclude Include="include\material\pearl.h" />
-    <ClInclude Include="include\material\plastic.h" />
-    <ClInclude Include="include\mesh\grid.h" />
-    <ClInclude Include="include\mesh\mesh.h" />
-    <ClInclude Include="include\mesh\primitives\cube.h" />
-    <ClInclude Include="include\mesh\primitives\square.h" />
-    <ClInclude Include="include\mesh\primitives\triangle.h" />
-    <ClInclude Include="include\shader.h" />
-    <ClInclude Include="include\world\void.h" />
-    <ClInclude Include="include\world\world.h" />
+    <None Include="gui\Workspace.ui" />
+    <ClCompile Include="gui\ui.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -123,38 +145,15 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>G:\MyProjects\OpenGL\Global\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>I:\MyProjects\OpenGL\Global\Libs;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Core\Qt\5.15.0\msvc2019_64\include;G:\MyProjects\OpenGL\Ibex\Ibex\include;G:\MyProjects\OpenGL\Global\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Core\Qt\5.15.0\msvc2019_64\lib;G:\MyProjects\OpenGL\Global\Libs;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Core\Qt\5.15.0\msvc2019_64\include;G:\MyProjects\OpenGL\Global\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
@@ -168,21 +167,29 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup>
+    <IncludePath>D:\Core\Qt\5.15.0\msvc2019_64\include;$(ProjectDir)include;$(ProjectDir)vendor;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Core\Qt\5.15.0\msvc2019_64\lib;$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
+    <CAExcludePath>$(ProjectDir)vendor;$(SolutionDir)packages;$(CAExcludePath)</CAExcludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\Core\Qt\5.15.0\msvc2019_64\include;$(ProjectDir)vendor\assimp\include;$(ProjectDir)vendor\glad;$(ProjectDir)vendor\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc140-mt.lib;IrrXML.lib;zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\boost.1.78.0\build\boost.targets" Condition="Exists('..\packages\boost.1.78.0\build\boost.targets')" />
+    <Import Project="..\packages\boost_filesystem-vc142.1.78.0\build\boost_filesystem-vc142.targets" Condition="Exists('..\packages\boost_filesystem-vc142.1.78.0\build\boost_filesystem-vc142.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\boost.1.78.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.78.0\build\boost.targets'))" />
+    <Error Condition="!Exists('..\packages\boost_filesystem-vc142.1.78.0\build\boost_filesystem-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_filesystem-vc142.1.78.0\build\boost_filesystem-vc142.targets'))" />
+  </Target>
 </Project>

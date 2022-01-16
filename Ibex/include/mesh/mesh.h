@@ -4,35 +4,29 @@
 #define MESH_H
 
 #include <vector>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "material/material.h"
-
-class Vertex {
-public:
-	glm::vec3 position;
-	glm::vec3 normal;
-	glm::vec3 color;
-	Vertex(glm::vec3);
-	Vertex(glm::vec3, glm::vec3, glm::vec3);
-};
+#include <material/material.h>
+#include <mesh/vertex.h>
+#include <shader/texture.h>
 
 class Mesh {
-public:
-	unsigned int VAO, VBO;
+protected:
+	unsigned int VAO, VBO, EBO;
 	std::vector<Vertex> vertices;
-	std::vector<glm::vec3> locations;
+	std::vector<unsigned int> locations;
 
+public:
 	Material* material;
 
 	Mesh();
+
 	Mesh(Material*);
-	Mesh(std::vector<Vertex>);
-	Mesh(std::vector<glm::vec3>);
-	Mesh(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec3>);
+	Mesh(std::vector<Vertex>, std::vector<unsigned int>);
+	Mesh(std::vector<Vertex>, std::vector<unsigned int>, Material*);
+
 	virtual int setupBuffers();
 	virtual int draw();
 	virtual int deleteBuffers();

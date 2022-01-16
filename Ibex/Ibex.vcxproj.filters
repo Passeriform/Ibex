@@ -1,194 +1,263 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{bf0cfd0b-5dd0-4a06-af08-96d5ef5ebf3b}</UniqueIdentifier>
+      <Extensions>frag;vert</Extensions>
     </Filter>
-    <Filter Include="Header Files\events">
-      <UniqueIdentifier>{0c8cfc97-937b-41ad-a42f-b3fe4e72f0c3}</UniqueIdentifier>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{daa634a8-e6fe-46b2-80aa-5fd1d57a162d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\world">
-      <UniqueIdentifier>{1f6ff4df-4c68-4765-b078-cfb5e39ef384}</UniqueIdentifier>
+    <Filter Include="Shaders\Grid">
+      <UniqueIdentifier>{2db34220-589b-4082-a9d7-208e2fdee254}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\utils">
-      <UniqueIdentifier>{06b13ebd-3b6a-4c3c-89cf-f5d56c687956}</UniqueIdentifier>
+    <Filter Include="Shaders\Lighting">
+      <UniqueIdentifier>{8fef7cc3-4c98-4892-861e-e02bbfa955e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\mesh">
-      <UniqueIdentifier>{264ffb9c-b9c9-44b5-97fa-5fe649b772d0}</UniqueIdentifier>
+    <Filter Include="Shaders\Material">
+      <UniqueIdentifier>{59984c73-d0fd-45ad-b10e-2036ea7fbe3d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\vendor">
-      <UniqueIdentifier>{f996cae1-6a5e-4771-bec3-657698320cd8}</UniqueIdentifier>
+    <Filter Include="Shaders\Mesh">
+      <UniqueIdentifier>{070413d0-2614-45dd-bc61-99f276122c79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui">
-      <UniqueIdentifier>{a4dd4035-3e53-4383-846b-ffa7a1d73406}</UniqueIdentifier>
+    <Filter Include="Shaders\Mesh\Phong">
+      <UniqueIdentifier>{06093a60-329f-48dd-83ee-57af85d2796f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\lighting">
-      <UniqueIdentifier>{d72c37df-10f6-4e26-b2b9-6ba797dcd9da}</UniqueIdentifier>
+    <Filter Include="Source">
+      <UniqueIdentifier>{d2c5e1c0-4f04-4b80-aa3d-e2c29e386f20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\material">
-      <UniqueIdentifier>{f0879a26-75ac-46ff-ada5-a235e7e54593}</UniqueIdentifier>
+    <Filter Include="Source\World">
+      <UniqueIdentifier>{da60d8c2-a4a3-4664-9e0e-fcf3c5ba577c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\World\Void">
+      <UniqueIdentifier>{ec07ddaf-a2e4-4ca4-9a71-2a15b7e3889a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Mesh">
+      <UniqueIdentifier>{ff725fd6-48b7-47ce-95d7-8875bbf3f8b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Mesh\Primitives">
+      <UniqueIdentifier>{6298e1d7-94bb-4b0f-bd93-a0871f53077a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Mesh\Grid">
+      <UniqueIdentifier>{4a04b1cc-90ed-401e-9aa5-8e64c1b1e1f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material">
+      <UniqueIdentifier>{e10937fc-ef85-4e4d-ae0c-314bde3e4c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material\Emerald">
+      <UniqueIdentifier>{cac6e55f-418f-4552-bf02-4b1c84ac6ed9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material\Plastic">
+      <UniqueIdentifier>{de11e09b-025f-407f-8cb7-39a36a8900b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material\Pearl">
+      <UniqueIdentifier>{301b6521-66b5-4aa9-9f4b-2d7f84c076d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material\Gold">
+      <UniqueIdentifier>{291f4200-2b99-4d55-812e-b7bea15ab173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Lighting">
+      <UniqueIdentifier>{91348a64-0496-4cbd-a20d-10d007851b82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Events">
+      <UniqueIdentifier>{599f926b-0ff1-4a05-bb34-e2ce627e069c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utility">
+      <UniqueIdentifier>{8c1fc0c5-c206-4f90-b3c9-01ba461de2ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Camera">
+      <UniqueIdentifier>{ed723054-0e90-4b78-94d6-dd5899cd38ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shader">
+      <UniqueIdentifier>{e624b387-ae6d-4d2d-a93b-24a7d810b7e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Lighting\OmniDirectionLight">
+      <UniqueIdentifier>{fcddea65-c846-4296-99ba-112052e6fc2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Model">
+      <UniqueIdentifier>{97cfa093-7938-4fc0-8014-d800a4913757}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Global\glad.c">
-      <Filter>Header Files\vendor</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\ui.cpp">
-      <Filter>Header Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="include\ibex.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\world\void.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\mesh\primitives\square.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\mesh\primitives\triangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\mesh\grid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\world\world.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\events\events.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\mesh\mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\lighting\lighting.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\lighting\omniDirectionLight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\mesh\primitives\cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\material\material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\material\gold.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\material\emerald.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\material\pearl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\material\plastic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Workspace.ui">
-      <Filter>Header Files\gui</Filter>
+    <None Include="shaders\gridShader.frag">
+      <Filter>Shaders\Grid</Filter>
     </None>
-    <None Include="shaders\lightShader.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="shaders\meshShader.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="shaders\meshShader.vert">
-      <Filter>Shaders</Filter>
+    <None Include="shaders\gridShader.vert">
+      <Filter>Shaders\Grid</Filter>
     </None>
     <None Include="shaders\lightShader.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Lighting</Filter>
     </None>
-    <None Include="shaders\phongMeshShader.frag">
-      <Filter>Shaders</Filter>
+    <None Include="shaders\lightShader.frag">
+      <Filter>Shaders\Lighting</Filter>
     </None>
-    <None Include="shaders\phongMeshShader.vert">
-      <Filter>Shaders</Filter>
+    <None Include="shaders\meshShader.frag">
+      <Filter>Shaders\Mesh</Filter>
+    </None>
+    <None Include="shaders\meshShader.vert">
+      <Filter>Shaders\Mesh</Filter>
     </None>
     <None Include="shaders\materialShader.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Material</Filter>
     </None>
     <None Include="shaders\materialShader.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Material</Filter>
     </None>
+    <None Include="shaders\phongMeshShader.vert">
+      <Filter>Shaders\Mesh\Phong</Filter>
+    </None>
+    <None Include="shaders\phongMeshShader.frag">
+      <Filter>Shaders\Mesh\Phong</Filter>
+    </None>
+    <None Include="gui\Workspace.ui">
+      <Filter>GUI</Filter>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ibex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\world\void.h">
-      <Filter>Header Files\world</Filter>
-    </ClInclude>
-    <ClInclude Include="include\world\world.h">
-      <Filter>Header Files\world</Filter>
-    </ClInclude>
-    <ClInclude Include="include\events\events.h">
-      <Filter>Header Files\events</Filter>
-    </ClInclude>
-    <ClInclude Include="include\events\listeners.h">
-      <Filter>Header Files\events</Filter>
-    </ClInclude>
+    <ClCompile Include="include\mesh\mesh.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="include\mesh\primitives\cube.cpp">
+      <Filter>Source\Mesh\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="include\mesh\primitives\triangle.cpp">
+      <Filter>Source\Mesh\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ibex.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="include\world\world.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="include\world\void.cpp">
+      <Filter>Source\World\Void</Filter>
+    </ClCompile>
+    <ClCompile Include="include\mesh\grid.cpp">
+      <Filter>Source\Mesh\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\ui.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\emerald.cpp">
+      <Filter>Source\Material\Emerald</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\material.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\gold.cpp">
+      <Filter>Source\Material\Gold</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\pearl.cpp">
+      <Filter>Source\Material\Pearl</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\plastic.cpp">
+      <Filter>Source\Material\Plastic</Filter>
+    </ClCompile>
+    <ClCompile Include="include\lighting\lighting.cpp">
+      <Filter>Source\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="include\events\events.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="include\model\model.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="include\camera\camera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="include\mesh\vertex.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="include\shader\texture.cpp">
+      <Filter>Source\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="include\lighting\omni_direction_light.cpp">
+      <Filter>Source\Lighting\OmniDirectionLight</Filter>
+    </ClCompile>
+    <ClCompile Include="include\material\material_registry.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\glad\glad.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="include\mesh\mesh.h">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mesh\primitives\triangle.h">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\glErrorLogger.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mesh\grid.h">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mesh\primitives\square.h">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\lighting\lighting.h">
-      <Filter>Header Files\lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="include\lighting\omniDirectionLight.h">
-      <Filter>Header Files\lighting</Filter>
+      <Filter>Source\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="include\mesh\primitives\cube.h">
-      <Filter>Header Files\mesh</Filter>
+      <Filter>Source\Mesh\Primitives</Filter>
     </ClInclude>
-    <ClInclude Include="include\shader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\mesh\primitives\triangle.h">
+      <Filter>Source\Mesh\Primitives</Filter>
     </ClInclude>
-    <ClInclude Include="include\material\material.h">
-      <Filter>Header Files\material</Filter>
+    <ClInclude Include="include\ibex.h">
+      <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="include\material\gold.h">
-      <Filter>Header Files\material</Filter>
+    <ClInclude Include="include\world\world.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\world\void.h">
+      <Filter>Source\World\Void</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mesh\grid.h">
+      <Filter>Source\Mesh\Grid</Filter>
     </ClInclude>
     <ClInclude Include="include\material\emerald.h">
-      <Filter>Header Files\material</Filter>
+      <Filter>Source\Material\Emerald</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material\material.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material\gold.h">
+      <Filter>Source\Material\Gold</Filter>
     </ClInclude>
     <ClInclude Include="include\material\pearl.h">
-      <Filter>Header Files\material</Filter>
+      <Filter>Source\Material\Pearl</Filter>
     </ClInclude>
     <ClInclude Include="include\material\plastic.h">
-      <Filter>Header Files\material</Filter>
+      <Filter>Source\Material\Plastic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\lighting\lighting.h">
+      <Filter>Source\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="include\events\events.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\events\listeners.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model\model.h">
+      <Filter>Source\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\camera\camera.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="include\constants.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mesh\vertex.h">
+      <Filter>Source\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shader\texture.h">
+      <Filter>Source\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utility\gl_error_logger.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\lighting\omni_direction_light.h">
+      <Filter>Source\Lighting\OmniDirectionLight</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material\material_registry.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utility\utility.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shader\shader.h">
+      <Filter>Source\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

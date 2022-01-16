@@ -8,7 +8,9 @@
 class Pearl : public Material {
 public:
 	Pearl();
-	Pearl(glm::vec3, glm::vec3, glm::vec3, float);
+	Pearl(std::vector<Texture*>);
+	Pearl(MaterialLightMap);
+	Pearl(MaterialLightMap, std::vector<Texture*>);
 };
 
 #endif

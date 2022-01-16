@@ -4,12 +4,11 @@
 #define LISTENERS_H
 
 #include <iostream>
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "ibex.h"
-#include "events.h"
+#include <ibex.h>
+#include <events/events.h>
 
 void Event::error_callback(int error, const char* description) {
 	fputs(description, stderr);

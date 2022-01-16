@@ -1,10 +1,10 @@
 #include "emerald.h"
+#include "material_registry.h"
 
-Emerald::Emerald() : Material(
-	glm::vec3(0.0215f, 0.1745f, 0.0215f),
-	glm::vec3(0.07568f, 0.61424f, 0.07568f),
-	glm::vec3(0.633f, 0.727811f, 0.633f),
-	76.8f
-) { }
+Emerald::Emerald() : Material(MATERIAL_REGISTRY[MaterialType::EMERALD]) { }
 
-Emerald::Emerald(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shine) : Material(ambient, diffuse, specular, shine) { }
+Emerald::Emerald(std::vector<Texture*> textures) : Material(textures) { }
+
+Emerald::Emerald(MaterialLightMap materialLightMap) : Material(materialLightMap) { }
+
+Emerald::Emerald(MaterialLightMap materialLightMap, std::vector<Texture*> textures) : Material(materialLightMap, textures) { }

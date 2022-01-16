@@ -6,17 +6,21 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "world/world.h"
+#include <world/world.h>
 
 namespace Ibex {
 	class Engine {
+		GLFWwindow* window;
+
+	protected:
+		template <typename WT>
+		int loadWorld(WT* world) {
+			activeWorld = world;
+			return 0;
+		}
 	public:
 		bool dumped;
-
-		GLFWwindow* window;
 		World* activeWorld;
-
-		Engine();
 
 		template <typename WT>
 		Engine& withWorld(WT* world) {
@@ -24,14 +28,11 @@ namespace Ibex {
 			return *this;
 		}
 
+		Engine();
+
 		int init();
 		int tick();
 		int dump();
-		template <typename WT>
-		int loadWorld(WT* world) {
-			activeWorld = world;
-			return 0;
-		}
 	};
 }
 

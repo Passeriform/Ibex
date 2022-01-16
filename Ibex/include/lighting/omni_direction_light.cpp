@@ -1,10 +1,12 @@
-#include "omniDirectionLight.h"
+#include "omni_direction_light.h"
 
 OmniDirectionLight::OmniDirectionLight() : Lighting() { }
 
 OmniDirectionLight::OmniDirectionLight(LightSource light) : Lighting(light) { }
 
 OmniDirectionLight::OmniDirectionLight(glm::vec3 origin, glm::vec3 color) : Lighting(origin, color) { }
+
+OmniDirectionLight::OmniDirectionLight(glm::vec3 origin, glm::vec3 color, glm::vec3 ambientFactor, glm::vec3 diffuseFactor, glm::vec3 specularFactor) : Lighting(origin, color, ambientFactor, diffuseFactor, specularFactor) { }
 
 int OmniDirectionLight::setupShaders() {
 	// Initialize lighting shader

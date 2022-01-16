@@ -8,7 +8,9 @@
 class Plastic : public Material {
 public:
 	Plastic();
-	Plastic(glm::vec3, glm::vec3, glm::vec3, float);
+	Plastic(std::vector<Texture*>);
+	Plastic(MaterialLightMap);
+	Plastic(MaterialLightMap, std::vector<Texture*>);
 };
 
 #endif

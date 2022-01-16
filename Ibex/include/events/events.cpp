@@ -1,7 +1,6 @@
-#include <float.h>
+#include <ibex.h>
 
 #include "events.h"
-#include "ibex.h"
 
 bool Event::lmb_down = false, Event::rmb_down = false, Event::mmb_down = false;
 double Event::dragInitX = DBL_MAX, Event::dragInitY = DBL_MAX;

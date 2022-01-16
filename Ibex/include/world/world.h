@@ -5,16 +5,15 @@
 
 #include <utility>
 #include <vector>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shader.h"
-#include "camera.h"
-#include "../mesh/mesh.h"
-#include "../mesh/grid.h"
-#include "../lighting/lighting.h"
+#include <shader/shader.h>
+#include <camera/camera.h>
+#include <mesh/mesh.h>
+#include <mesh/grid.h>
+#include <lighting/lighting.h>
 
 struct CameraConfig {
 	glm::vec3 origin;
@@ -41,31 +40,19 @@ struct WindowConfig {
 };
 
 class World {
-public:
-	WorldConfig world;
-	CameraConfig camera;
 	LightingConfig lighting;
+
+protected:
+	WorldConfig world;
 	WindowConfig window;
+	Grid* grid;
 
 	Shader meshShader;
+	Shader gridShader;
 
 	std::vector<Mesh*> elements;
 
 	std::vector<Lighting*> lightSources;
-
-	Grid* grid;
-
-	World();
-	World(WorldConfig, CameraConfig, LightingConfig, WindowConfig);
-
-	virtual int load();
-	virtual int onTick();
-	virtual int cleanup();
-
-	virtual int setWorld(WorldConfig);
-	virtual int setCamera(CameraConfig);
-	virtual int setLighting(LightingConfig);
-	virtual int setWindow(WindowConfig);
 
 	template <typename ET, typename... PT>
 	int addElement(PT... parameters) {
@@ -82,6 +69,22 @@ public:
 		lightSources.push_back(lightSource);
 		return 0;
 	}
+
+public:
+	CameraConfig camera;
+
+	World();
+	World(WorldConfig, CameraConfig, LightingConfig, WindowConfig);
+
+	// Every world *must* implement their own independent load, tick and cleanup methods.
+	virtual int load() = 0;
+	virtual int onTick() = 0;
+	virtual int cleanup() = 0;
+
+	virtual int setWorld(WorldConfig);
+	virtual int setCamera(CameraConfig);
+	virtual int setLighting(LightingConfig);
+	virtual int setWindow(WindowConfig);
 };
 
 #endif

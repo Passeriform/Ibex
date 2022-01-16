@@ -8,7 +8,9 @@
 class Emerald : public Material {
 public:
 	Emerald();
-	Emerald(glm::vec3, glm::vec3, glm::vec3, float);
+	Emerald(std::vector<Texture*>);
+	Emerald(MaterialLightMap);
+	Emerald(MaterialLightMap, std::vector<Texture*>);
 };
 
 #endif
