@@ -7,13 +7,15 @@
 
 #include "material.h"
 
-enum MaterialType {
+enum class MaterialType {
 	EMERALD,
 	GOLD,
 	PEARL,
 	PLASTIC,
 };
 
-extern std::unordered_map<unsigned int, MaterialLightMap> MATERIAL_REGISTRY;
+extern struct MaterialLightMap;
+
+extern std::unordered_map<MaterialType, MaterialLightMap> MATERIAL_REGISTRY;
 
 #endif

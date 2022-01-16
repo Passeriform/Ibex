@@ -8,6 +8,10 @@
 #include <shader/texture.h>
 #include <utility/utility.h>
 
+#include "material_registry.h"
+
+extern enum class MaterialType;
+
 struct MaterialLightMap {
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
@@ -24,7 +28,9 @@ public:
 	Material();
 	Material(std::vector<Texture*>);
 	Material(MaterialLightMap);
+	Material(MaterialType);
 	Material(MaterialLightMap, std::vector<Texture*>);
+	Material(MaterialType, std::vector<Texture*>);
 
 	int setupBuffers();
 };

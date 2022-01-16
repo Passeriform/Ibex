@@ -21,9 +21,13 @@ Material::Material(MaterialLightMap materialLightMap) : Material() {
 	this->materialLightMap = materialLightMap;
 }
 
+Material::Material(MaterialType materialType) : Material(MATERIAL_REGISTRY[materialType]) { }
+
 Material::Material(MaterialLightMap materialLightMap, std::vector<Texture*> textures) : Material(materialLightMap) {
 	this->textures = textures;
 }
+
+Material::Material(MaterialType materialType, std::vector<Texture*> textures) : Material(MATERIAL_REGISTRY[materialType], textures) { }
 
 int Material::setupBuffers() {
 	unsigned int textureIndex = 0;
