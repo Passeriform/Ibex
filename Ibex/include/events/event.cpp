@@ -8,7 +8,7 @@ double Event::dragInitX = DBL_MAX, Event::dragInitY = DBL_MAX;
 void Event::tick(std::shared_ptr<GLFWwindow> window) {
 	std::unique_ptr<Ibex::Engine, Ibex::EngineDeleter> engine(
 		static_cast<Ibex::Engine*>(glfwGetWindowUserPointer(window.get())),
-		Ibex::defaultEngineDeleter
+		[](Ibex::Engine*) {}
 	);
 	std::shared_ptr<Camera> camera = engine->getActiveWorld()->getActiveCamera();
 
