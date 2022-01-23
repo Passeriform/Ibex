@@ -15,7 +15,6 @@ enum class MaterialType {
 };
 
 extern struct MaterialLightMap;
-
 extern std::unordered_map<MaterialType, MaterialLightMap> MATERIAL_REGISTRY;
 
 #endif

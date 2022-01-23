@@ -17,7 +17,7 @@ std::vector<Vertex> Vertex::fromRaw(std::vector<glm::vec3> rawVec) {
 	std::vector<Vertex> vertices;
 
 	for (auto i = 0; i < rawVec.size() - (vertexAttribCount - 1); i += vertexAttribCount) {
-		vertices.push_back(Vertex(rawVec[i], rawVec[i + 1], rawVec[i + 2], rawVec[i + 3]));
+		vertices.emplace_back(Vertex(rawVec[i], rawVec[i + 1], rawVec[i + 2], rawVec[i + 3]));
 	}
 
 	return vertices;
@@ -38,7 +38,7 @@ std::vector<Vertex> Vertex::fromComponents(
 		i < colorVec.size() &&
 		i < texturePosVec.size();
 		i++) {
-		vertices.push_back(Vertex(posVec[i], normVec[i], colorVec[i], texturePosVec[i]));
+		vertices.emplace_back(Vertex(posVec[i], normVec[i], colorVec[i], texturePosVec[i]));
 	}
 
 	return vertices;

@@ -8,7 +8,7 @@
 
 int main() {
 	Ibex::Engine core = Ibex::Engine()
-		.withWorld<Void>(new Void());
+		.withWorld<Void>(std::unique_ptr<Void>(new Void()));
 
 	core.init();
 

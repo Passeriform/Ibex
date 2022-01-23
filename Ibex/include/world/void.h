@@ -8,7 +8,7 @@
 class Void : public World {
 public:
 	Void();
-	Void(WorldConfig, CameraConfig, LightingConfig, WindowConfig);
+	Void(WindowOptions, WorldOptions, GridOptions);
 	int load();
 	int onTick();
 	int cleanup();

@@ -14,15 +14,6 @@
     <Filter Include="Shaders\Lighting">
       <UniqueIdentifier>{8fef7cc3-4c98-4892-861e-e02bbfa955e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders\Material">
-      <UniqueIdentifier>{59984c73-d0fd-45ad-b10e-2036ea7fbe3d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\Mesh">
-      <UniqueIdentifier>{070413d0-2614-45dd-bc61-99f276122c79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders\Mesh\Phong">
-      <UniqueIdentifier>{06093a60-329f-48dd-83ee-57af85d2796f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{d2c5e1c0-4f04-4b80-aa3d-e2c29e386f20}</UniqueIdentifier>
     </Filter>
@@ -65,6 +56,12 @@
     <Filter Include="Source\Model">
       <UniqueIdentifier>{97cfa093-7938-4fc0-8014-d800a4913757}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\Material">
+      <UniqueIdentifier>{59984c73-d0fd-45ad-b10e-2036ea7fbe3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Mesh">
+      <UniqueIdentifier>{303718a5-edf3-4726-b17e-421ed6c26809}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\gridShader.frag">
@@ -79,28 +76,22 @@
     <None Include="shaders\lightShader.frag">
       <Filter>Shaders\Lighting</Filter>
     </None>
-    <None Include="shaders\meshShader.frag">
-      <Filter>Shaders\Mesh</Filter>
-    </None>
-    <None Include="shaders\meshShader.vert">
-      <Filter>Shaders\Mesh</Filter>
-    </None>
-    <None Include="shaders\materialShader.frag">
-      <Filter>Shaders\Material</Filter>
-    </None>
     <None Include="shaders\materialShader.vert">
       <Filter>Shaders\Material</Filter>
-    </None>
-    <None Include="shaders\phongMeshShader.vert">
-      <Filter>Shaders\Mesh\Phong</Filter>
-    </None>
-    <None Include="shaders\phongMeshShader.frag">
-      <Filter>Shaders\Mesh\Phong</Filter>
     </None>
     <None Include="gui\Workspace.ui">
       <Filter>GUI</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="shaders\materialShader.frag">
+      <Filter>Shaders\Material</Filter>
+    </None>
+    <None Include="shaders\phongMeshShader.frag">
+      <Filter>Shaders\Mesh</Filter>
+    </None>
+    <None Include="shaders\phongMeshShader.vert">
+      <Filter>Shaders\Mesh</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\mesh\mesh.cpp">
@@ -130,9 +121,6 @@
     <ClCompile Include="include\lighting\lighting.cpp">
       <Filter>Source\Lighting</Filter>
     </ClCompile>
-    <ClCompile Include="include\events\events.cpp">
-      <Filter>Source\Events</Filter>
-    </ClCompile>
     <ClCompile Include="include\model\model.cpp">
       <Filter>Source\Model</Filter>
     </ClCompile>
@@ -160,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="include\mesh\primitives\triangle.cpp">
       <Filter>Source\Mesh\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="include\events\event.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="include\events\listener.cpp">
+      <Filter>Source\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,12 +184,6 @@
     <ClInclude Include="include\lighting\lighting.h">
       <Filter>Source\Lighting</Filter>
     </ClInclude>
-    <ClInclude Include="include\events\events.h">
-      <Filter>Source\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="include\events\listeners.h">
-      <Filter>Source\Events</Filter>
-    </ClInclude>
     <ClInclude Include="include\model\model.h">
       <Filter>Source\Model</Filter>
     </ClInclude>
@@ -225,6 +213,12 @@
     </ClInclude>
     <ClInclude Include="include\shader\shader.h">
       <Filter>Source\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\events\event.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\events\listener.h">
+      <Filter>Source\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

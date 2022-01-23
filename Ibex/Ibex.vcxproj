@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\camera\camera.cpp" />
+    <ClCompile Include="include\events\listener.cpp" />
     <ClCompile Include="include\material\material_registry.cpp" />
     <ClCompile Include="include\mesh\vertex.cpp" />
     <ClCompile Include="include\model\model.cpp" />
@@ -66,9 +67,9 @@
     <ClCompile Include="include\lighting\omni_direction_light.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\events\listeners.h" />
-    <ClInclude Include="include\events\events.h" />
-    <ClCompile Include="include\events\events.cpp" />
+    <ClInclude Include="include\events\listener.h" />
+    <ClInclude Include="include\events\event.h" />
+    <ClCompile Include="include\events\event.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -78,8 +79,6 @@
     <None Include="shaders\lightShader.vert" />
     <None Include="shaders\materialShader.frag" />
     <None Include="shaders\materialShader.vert" />
-    <None Include="shaders\meshShader.frag" />
-    <None Include="shaders\meshShader.vert" />
     <None Include="shaders\phongMeshShader.frag" />
     <None Include="shaders\phongMeshShader.vert" />
   </ItemGroup>
@@ -168,6 +167,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>D:\Core\Qt\5.15.0\msvc2019_64\include;$(ProjectDir)vendor\assimp\include;$(ProjectDir)vendor\glad;$(ProjectDir)vendor\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc140-mt.lib;IrrXML.lib;zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>

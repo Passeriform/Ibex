@@ -88,16 +88,26 @@ Cube::Cube() :
 	)
 { };
 
-Cube::Cube(Material* material) : Cube() {
+Cube::Cube(std::shared_ptr<Material> material) : Cube() {
 	this->material = material;
 }
+
+Cube::Cube(Material& material) : Cube(std::make_shared<Material>(material)) { }
 
 Cube::Cube(std::vector<Vertex> vertices, std::vector<unsigned int> locations) : Mesh(vertices, locations) { }
 
 Cube::Cube(
 	std::vector<Vertex> vertices,
 	std::vector<unsigned int> locations,
-	Material* material
+	std::shared_ptr<Material> material
 ) : Cube(vertices, locations) {
 	this->material = material;
+}
+
+Cube::Cube(
+	std::vector<Vertex> vertices,
+	std::vector<unsigned int> locations,
+	Material& material
+) : Cube(vertices, locations) {
+	this->material = std::make_shared<Material>(material);
 }

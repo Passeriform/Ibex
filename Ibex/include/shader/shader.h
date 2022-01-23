@@ -11,36 +11,36 @@
 #include <glm/glm.hpp>
 
 class Shader {
-	unsigned int setupShader(unsigned int, const char*);
-	std::string loadSource(const char*);
+	unsigned int setupShader(unsigned int, const std::string&);
+	std::string loadSource(const std::string&);
 	unsigned int compileSource(unsigned int, std::string);
 	unsigned int bind(std::initializer_list<unsigned int>);
 
-	void checkCompileErrors(GLuint shader, std::string type);
+	void checkCompileErrors(GLuint, std::string);
 
 public:
 	unsigned int ID;
 
 	Shader();
 
-	Shader(const char* vertexPath, const char* fragmentPath);
-	Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath);
+	Shader(const std::string&, const std::string&);
+	Shader(const std::string&, const std::string&, const std::string&);
 
 	void use();
 
 	// Convenience shader varianble setters
-	void setBool(const std::string& name, bool value) const;
-	void setInt(const std::string& name, int value) const;
-	void setFloat(const std::string& name, float value) const;
-	void setVec2(const std::string& name, const glm::vec2& value) const;
-	void setVec2(const std::string& name, float x, float y) const;
-	void setVec3(const std::string& name, const glm::vec3& value) const;
-	void setVec3(const std::string& name, float x, float y, float z) const;
-	void setVec4(const std::string& name, const glm::vec4& value) const;
-	void setVec4(const std::string& name, float x, float y, float z, float w);
-	void setMat2(const std::string& name, const glm::mat2& mat) const;
-	void setMat3(const std::string& name, const glm::mat3& mat) const;
-	void setMat4(const std::string& name, const glm::mat4& mat) const;
+	void setBool(const std::string&, bool) const;
+	void setInt(const std::string&, int) const;
+	void setFloat(const std::string&, float) const;
+	void setVec2(const std::string&, const glm::vec2&) const;
+	void setVec2(const std::string&, float, float) const;
+	void setVec3(const std::string&, const glm::vec3&) const;
+	void setVec3(const std::string&, float, float, float) const;
+	void setVec4(const std::string&, const glm::vec4&) const;
+	void setVec4(const std::string&, float, float, float, float);
+	void setMat2(const std::string&, const glm::mat2&) const;
+	void setMat3(const std::string&, const glm::mat3&) const;
+	void setMat4(const std::string&, const glm::mat4&) const;
 
 	// Utility method for debug output
 	std::string getLogTypeString(unsigned int);

@@ -9,9 +9,11 @@ class Cube : public Mesh {
 public:
 	Cube();
 
-	Cube(Material*);
+	Cube(std::shared_ptr<Material>);
+	Cube(Material&);
 	Cube(std::vector<Vertex>, std::vector<unsigned int>);
-	Cube(std::vector<Vertex>, std::vector<unsigned int>, Material*);
+	Cube(std::vector<Vertex>, std::vector<unsigned int>, std::shared_ptr<Material>);
+	Cube(std::vector<Vertex>, std::vector<unsigned int>, Material&);
 };
 
 #endif

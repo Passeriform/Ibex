@@ -8,7 +8,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-inline GLenum glCheckError_(const char* file, int line)
+inline GLenum glCheckError_(const std::string file, int line)
 {
 	GLenum errorCode;
 	while ((errorCode = glGetError()) != GL_NO_ERROR)

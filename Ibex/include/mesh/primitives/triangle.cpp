@@ -17,8 +17,8 @@ Triangle::Triangle() :
 	)
 { };
 
-Triangle::Triangle(Material* material) : Triangle() {
-	this->material = material;
+Triangle::Triangle(Material& material) : Triangle() {
+	this->material = std::make_shared<Material>(material);
 }
 
 Triangle::Triangle(std::vector<Vertex> vertices, std::vector<unsigned int> locations) : Mesh(vertices, locations) { }
@@ -26,7 +26,7 @@ Triangle::Triangle(std::vector<Vertex> vertices, std::vector<unsigned int> locat
 Triangle::Triangle(
 	std::vector<Vertex> vertices,
 	std::vector<unsigned int> locations,
-	Material* material
+	Material& material
 ) : Mesh(vertices, locations) {
-	this->material = material;
+	this->material = std::make_shared<Material>(material);
 }

@@ -1,56 +1,34 @@
 #include "world.h"
 
-World::World() {
-	world = WorldConfig{
-		true,							// showGrid
-		32,								// gridSize
-		glm::vec3(0.0f, 0.0f, 0.0f),	// origin
-		std::make_pair(					// bounds
-			glm::vec3(-1000.0f, -1000.0f, -1000.0f),
-			glm::vec3(1000.0f, 1000.0f, 1000.0f)
-		),
-
-		glm::vec4(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f),			// backgroundColor
-		glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f),		// foregroundColor
-		glm::vec4(127.0f / 255.0f, 127.0f / 255.0f, 127.0f / 255.0f, 1.0f)		// gridColor
-	};
-
-	camera = CameraConfig{
-		glm::vec3(0.0f, 0.0f, 0.0f)		// origin
-	};
-
-	lighting = LightingConfig{
-		"shaders/lightShader.vert",					// vertexPath
-		"shaders/lightShader.frag"					// fragmentPath
-	};												// TODO: Provision for adding multiple selectable lighting shader.
-
-	window = WindowConfig{							// Window remains uninitialized (Must be initialized within world loading.
-	};
-}
-
-World::World(WorldConfig world, CameraConfig camera, LightingConfig lighting, WindowConfig window) :
-	world(world),
-	camera(camera),
-	lighting(lighting),
-	window(window)
+World::World() :
+	windowOptions({ std::make_pair(1024, 1024) }),
+	worldOptions(
+		{
+			glm::vec4(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f),			// backgroundColor
+			glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f),		// foregroundColor
+			std::make_pair(															// bounds
+				glm::vec3(-1000.0f, -1000.0f, -1000.0f),
+				glm::vec3(1000.0f, 1000.0f, 1000.0f)
+			),
+		}
+	),
+	gridOptions({ 32, glm::vec4(127.0f / 255.0f, 127.0f / 255.0f, 127.0f / 255.0f, 1.0f) }),
+	showGrid(true)
 { }
 
-int World::setWorld(WorldConfig world) {
-	this->world = world;
+World::World(WindowOptions windowOptions, WorldOptions worldOptions, GridOptions gridOptions) :
+	windowOptions(windowOptions),
+	worldOptions(worldOptions),
+	gridOptions(gridOptions),
+	// TODO: Move to Grid.cpp
+	showGrid(true)
+{ }
+
+int World::setWindowDim(unsigned int width, unsigned int height) {
+	this->windowOptions.dim = std::make_pair(width, height);
 	return 0;
 }
 
-int World::setCamera(CameraConfig camera) {
-	this->camera = camera;
-	return 0;
-}
-
-int World::setLighting(LightingConfig lighting) {
-	this->lighting = lighting;
-	return 0;
-}
-
-int World::setWindow(WindowConfig window) {
-	this->window = window;
-	return 0;
+std::shared_ptr<Camera>& World::getActiveCamera() {
+	return cameras[0];
 }

@@ -1,17 +1,12 @@
-#include <boost/algorithm/clamp.hpp>
 #include <glad/glad.h>
+
+#include <boost/algorithm/clamp.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "camera.h"
 
-// Constructor with vectors
-Camera::Camera(
-	glm::vec3 position,
-	glm::vec3 up,
-	float yaw,
-	float pitch
-) :
+Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) :
 	Front(glm::vec3(0.0f, 0.0f, -1.0f)),
 	MovementSpeed(Constants::SPEED),
 	MouseSensitivity(Constants::SENSITIVITY),
@@ -26,14 +21,9 @@ Camera::Camera(
 
 // Constructor with scalar values
 Camera::Camera(
-	float posX,
-	float posY,
-	float posZ,
-	float upX,
-	float upY,
-	float upZ,
-	float yaw,
-	float pitch
+	float posX, float posY, float posZ,
+	float upX, float upY, float upZ,
+	float yaw, float pitch
 ) :
 	Front(glm::vec3(0.0f, 0.0f, -1.0f)),
 	MovementSpeed(Constants::SPEED),
@@ -53,17 +43,14 @@ glm::mat4 Camera::GetViewMatrix() {
 
 void Camera::MoveCamera(CameraMovement direction, float deltaTime) {
 	float velocity = MovementSpeed * deltaTime;
-	if (direction == CameraMovement::FORWARD)
-		Position += Front * velocity;
-	if (direction == CameraMovement::BACKWARD)
-		Position -= Front * velocity;
-	if (direction == CameraMovement::LEFT)
-		Position -= Right * velocity;
-	if (direction == CameraMovement::RIGHT)
-		Position += Right * velocity;
+	if (direction == CameraMovement::FORWARD) Position += Front * velocity;
+	if (direction == CameraMovement::BACKWARD) Position -= Front * velocity;
+	if (direction == CameraMovement::LEFT) Position -= Right * velocity;
+	if (direction == CameraMovement::RIGHT) Position += Right * velocity;
 }
 
-// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
+// Processes input received from a mouse input system. Expects the offset value
+// in both the x and y direction.
 void Camera::RotateCamera(float xoffset, float yoffset, GLboolean constrainPitch) {
 	xoffset *= MouseSensitivity;
 	yoffset *= MouseSensitivity;
@@ -80,7 +67,8 @@ void Camera::RotateCamera(float xoffset, float yoffset, GLboolean constrainPitch
 	updateCameraVectors();
 }
 
-// Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
+// Processes input received from a mouse scroll-wheel event. Only requires input
+// on the vertical wheel-axis
 void Camera::ZoomCamera(float yoffset) {
 	Zoom = boost::algorithm::clamp(Zoom - yoffset, 1.0f, 45.0f);
 }

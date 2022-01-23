@@ -22,7 +22,6 @@ struct Light {
 };
 
 uniform vec3 viewPos;
-uniform sampler2D textureSampler;
 uniform Material material;
 uniform Light light;
 

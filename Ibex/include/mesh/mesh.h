@@ -4,6 +4,7 @@
 #define MESH_H
 
 #include <vector>
+#include <memory>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -19,13 +20,15 @@ protected:
 	std::vector<unsigned int> locations;
 
 public:
-	Material* material;
+	std::shared_ptr<Material> material;
 
 	Mesh();
 
-	Mesh(Material*);
+	Mesh(Material&);
+	Mesh(std::shared_ptr<Material>);
 	Mesh(std::vector<Vertex>, std::vector<unsigned int>);
-	Mesh(std::vector<Vertex>, std::vector<unsigned int>, Material*);
+	Mesh(std::vector<Vertex>, std::vector<unsigned int>, Material&);
+	Mesh(std::vector<Vertex>, std::vector<unsigned int>, std::shared_ptr<Material>);
 
 	int setFlatColor(glm::vec3);
 

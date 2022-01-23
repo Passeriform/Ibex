@@ -9,12 +9,14 @@ Mesh::Mesh() :
 	EBO(-1),
 	vertices({}),
 	locations({}),
-	material(new Material())
+	material(std::make_shared<Material>())
 { }
 
-Mesh::Mesh(Material* material) : Mesh() {
+Mesh::Mesh(std::shared_ptr<Material> material) : Mesh() {
 	this->material = material;
 }
+
+Mesh::Mesh(Material& material) : Mesh(std::make_shared<Material>(material)) { }
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> locations) : Mesh() {
 	this->vertices = vertices;
@@ -24,10 +26,16 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> locations) : 
 Mesh::Mesh(
 	std::vector<Vertex> vertices,
 	std::vector<unsigned int> locations,
-	Material* material
+	std::shared_ptr<Material> material
 ) : Mesh(vertices, locations) {
 	this->material = material;
 }
+
+Mesh::Mesh(
+	std::vector<Vertex> vertices,
+	std::vector<unsigned int> locations,
+	Material& material
+) : Mesh(vertices, locations, std::make_shared<Material>(material)) { }
 
 int Mesh::setFlatColor(glm::vec3 flatColor) {
 	for (int i = 0; i < vertices.size(); i++) {
@@ -114,12 +122,11 @@ int Mesh::setupBuffers() {
 
 int Mesh::draw() {
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, (GLsizei)locations.size(), GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, locations.size(), GL_UNSIGNED_INT, NULL);
 	glBindVertexArray(0);
 
 	return 0;
 }
-
 
 int Mesh::deleteBuffers() {
 	glDeleteVertexArrays(1, &VAO);

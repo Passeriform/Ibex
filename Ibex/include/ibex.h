@@ -10,30 +10,39 @@
 
 namespace Ibex {
 	class Engine {
-		GLFWwindow* window;
+		std::unique_ptr<GLFWwindow, GLFWwindowDeleter> window;
+		std::unique_ptr<World> activeWorld;
 
-	protected:
-		template <typename WT>
-		int loadWorld(WT* world) {
-			activeWorld = world;
+		// Private non-writeable proxy
+		bool isDumped;
+
+		template <typename WT = World>
+		int loadWorld(std::unique_ptr<WT> world) {
+			activeWorld = std::move(world);
 			return 0;
 		}
-	public:
-		bool dumped;
-		World* activeWorld;
 
-		template <typename WT>
-		Engine& withWorld(WT* world) {
-			this->activeWorld = world;
+	public:
+		const bool& dumped = isDumped;
+
+		template <typename WT = World>
+		Engine& withWorld(std::unique_ptr<WT> world) {
+			this->loadWorld(std::move(world));
 			return *this;
 		}
 
 		Engine();
+		Engine(Engine&);
 
 		int init();
 		int tick();
 		int dump();
+
+		World* getActiveWorld();
 	};
+
+	typedef void(*EngineDeleter)(Engine*);
+	auto defaultEngineDeleter = [](Engine* core) { core->dump(); };
 }
 
 #endif

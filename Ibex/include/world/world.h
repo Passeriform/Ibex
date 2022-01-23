@@ -15,76 +15,73 @@
 #include <mesh/grid.h>
 #include <lighting/lighting.h>
 
-struct CameraConfig {
-	glm::vec3 origin;
-	Camera instance;
+struct WindowOptions {
+	std::pair<unsigned int, unsigned int> dim;
 };
 
-struct WorldConfig {
-	bool showGrid;
-	double gridSize;
-	glm::vec3 origin;
-	std::pair<glm::vec3, glm::vec3> bounds;
+struct WorldOptions {
 	glm::vec4 backgroundColor;
 	glm::vec4 foregroundColor;
+	std::pair<glm::vec3, glm::vec3> bounds;
+};
+
+struct GridOptions {
+	double gridSize;
 	glm::vec4 gridColor;
 };
 
-struct LightingConfig {
-	const char* vertexPath;
-	const char* fragmentPath;
-};
-
-struct WindowConfig {
-	std::pair<int, int> dim;
-};
-
 class World {
-	LightingConfig lighting;
-
 protected:
-	WorldConfig world;
-	WindowConfig window;
-	Grid* grid;
+	// Global options set during construction.
+	WindowOptions windowOptions;
+	WorldOptions worldOptions;
+	GridOptions gridOptions;
 
-	Shader meshShader;
-	Shader gridShader;
+	// Grid variables
+	std::unique_ptr<Grid> grid;
+	bool showGrid;
 
-	std::vector<Mesh*> elements;
+	// Shaders
+	Shader meshShader;	// TODO: Move into mesh instead.
+	Shader gridShader;	// TODO: Move into grid instead.
 
-	std::vector<Lighting*> lightSources;
+	std::vector<std::shared_ptr<Camera>> cameras;
+	std::vector<std::shared_ptr<Mesh>> elements;
+	std::vector<std::shared_ptr<Lighting>> lightSources;
 
-	template <typename ET, typename... PT>
-	int addElement(PT... parameters) {
-		// Heap allocation using new to outlive this block
-		Mesh* element = new ET(parameters...);
-		elements.push_back(element);
+	template <typename CT = Camera, typename... PT>
+	int addCamera(PT&&... parameters) {
+		std::shared_ptr<Camera> camera = std::make_shared<CT>(std::forward<PT>(parameters)...);
+		cameras.emplace_back(camera);
+		// TODO: Set last added camera as active.
 		return 0;
 	}
 
-	template <typename LT, typename... PT>
-	int addLighting(PT... parameters) {
-		// Heap allocation using new to outlive this block
-		Lighting* lightSource = new LT(parameters...);
-		lightSources.push_back(lightSource);
+	template <typename ET = Mesh, typename... PT>
+	int addElement(PT&&... parameters) {
+		std::shared_ptr<Mesh> element = std::make_shared<ET>(std::forward<PT>(parameters)...);
+		elements.emplace_back(element);
+		return 0;
+	}
+
+	template <typename LT = Lighting, typename... PT>
+	int addLighting(PT&&... parameters) {
+		std::shared_ptr<Lighting> lightSource = std::make_shared<LT>(std::forward<PT>(parameters)...);
+		lightSources.emplace_back(lightSource);
 		return 0;
 	}
 
 public:
-	CameraConfig camera;
-
 	World();
-	World(WorldConfig, CameraConfig, LightingConfig, WindowConfig);
+	World(WindowOptions, WorldOptions, GridOptions);
 
 	// Every world *must* implement their own independent load, tick and cleanup methods.
 	virtual int load() = 0;
 	virtual int onTick() = 0;
 	virtual int cleanup() = 0;
 
-	virtual int setWorld(WorldConfig);
-	virtual int setCamera(CameraConfig);
-	virtual int setLighting(LightingConfig);
-	virtual int setWindow(WindowConfig);
+	int setWindowDim(unsigned int, unsigned int);
+	std::shared_ptr<Camera>& getActiveCamera();
 };
 
 #endif

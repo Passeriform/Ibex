@@ -7,9 +7,16 @@
 
 #include "texture.h"
 
-Texture::Texture() : Texture("resources/textures/default_texture_map.jpg") { };
+Texture::Texture() : Texture("resources/textures/default_texture_map.jpg") { }
+
+Texture::Texture(unsigned int id, std::string type, std::string path) :
+	id(id),
+	type(type),
+	path(path)
+{ }
 
 Texture::Texture(std::string imagePath) :
+	id(-1),
 	path(imagePath)
 { }
 
@@ -28,7 +35,7 @@ int Texture::load(unsigned int textureOffset) {
 
 	// load and generate the texture
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load(
+	stbi_uc* data = stbi_load(
 		boost::filesystem::absolute(
 			boost::filesystem::path(this->path.c_str())
 		).string().c_str(),

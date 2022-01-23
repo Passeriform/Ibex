@@ -8,12 +8,17 @@
 class Texture {
 	unsigned int id;
 
+	// TODO: Use operator= overloads werever possible.
+
 public:
 	std::string type;
 	std::string path;
 
 	Texture();
-	Texture(std::string imagePath);
+	Texture(const Texture&) = default;
+	Texture(Texture&&) = default;
+	Texture(unsigned int, std::string, std::string);
+	Texture(std::string);
 
 	int load(unsigned int);
 };

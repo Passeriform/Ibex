@@ -3,20 +3,20 @@
 
 Shader::Shader() : ID(-1) { }
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath) : Shader() {
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) : Shader() {
 	unsigned int vertexShaderId = setupShader(GL_VERTEX_SHADER, vertexPath);
 	unsigned int fragmentShaderId = setupShader(GL_FRAGMENT_SHADER, fragmentPath);
 
 	bind({ vertexShaderId, fragmentShaderId });
 }
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath) : Shader(vertexPath, fragmentPath) {
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath, const std::string& geometryPath) : Shader(vertexPath, fragmentPath) {
 	unsigned int geometryShaderId = setupShader(GL_GEOMETRY_SHADER, geometryPath);
 
 	bind({ geometryShaderId });
 }
 
-unsigned int Shader::setupShader(unsigned int shaderType, const char* shaderPath) {
+unsigned int Shader::setupShader(unsigned int shaderType, const std::string& shaderPath) {
 	std::string shaderCode;
 
 	try {
@@ -27,12 +27,10 @@ unsigned int Shader::setupShader(unsigned int shaderType, const char* shaderPath
 		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
 
-	const char* shaderCodePtr = shaderCode.c_str();
-
-	return compileSource(shaderType, shaderCodePtr);
+	return compileSource(shaderType, shaderCode);
 }
 
-std::string Shader::loadSource(const char* shaderPath) {
+std::string Shader::loadSource(const std::string& shaderPath) {
 	std::string shaderCode;
 	std::ifstream shaderFile;
 
@@ -57,7 +55,7 @@ std::string Shader::loadSource(const char* shaderPath) {
 }
 
 unsigned int Shader::compileSource(unsigned int shaderType, std::string shaderSource) {
-	const char* shaderCode = shaderSource.c_str();
+	const GLchar* shaderCode = shaderSource.c_str();
 	unsigned int shader;
 
 	shader = glCreateShader(shaderType);
@@ -75,7 +73,7 @@ unsigned int Shader::bind(std::initializer_list<unsigned int> shaderIds) {
 		ID = glCreateProgram();
 	}
 
-	for (auto shaderId : shaderIds) {
+	for (auto const& shaderId : shaderIds) {
 		glAttachShader(ID, shaderId);
 	}
 
@@ -83,7 +81,7 @@ unsigned int Shader::bind(std::initializer_list<unsigned int> shaderIds) {
 
 	checkCompileErrors(ID, getLogTypeString(GL_CURRENT_PROGRAM));
 
-	for (auto shaderId : shaderIds) {
+	for (auto const& shaderId : shaderIds) {
 		glDeleteShader(shaderId);
 	}
 

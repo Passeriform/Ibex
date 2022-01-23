@@ -3,17 +3,29 @@
 #include <assimp/postprocess.h>
 
 #include <mesh/mesh.h>
-#include <events/listeners.h>
+#include <events/event.h>
+#include <events/listener.h>
 
 #include "ibex.h"
 
 using namespace Ibex;
 
-Engine::Engine() : dumped(false) { };
+Engine::Engine() :
+	window(std::unique_ptr<GLFWwindow, GLFWwindowDeleter> {nullptr, windowDeleter}),
+	activeWorld(std::move(nullptr)),
+	isDumped(false)
+{ };
+
+Engine::Engine(Engine& engine) :
+	window(std::move(engine.window)),
+	activeWorld(std::move(engine.activeWorld)),
+	isDumped(engine.isDumped)
+{}
 
 int Engine::init() {
 	// Window dimensions
-	// (Better if fetched directly from the client window preferences.)
+	// TODO: Fetch from the client window preferences.
+	// TODO: Try removing all `new` occurance to automatic storage duration (https://stackoverflow.com/questions/8839943/why-does-the-use-of-new-cause-memory-leaks/8840302#8840302)
 	double scrWidth = 32 * 32, scrHeight = 32 * 32;
 
 	// Initialize GLFW
@@ -33,9 +45,8 @@ int Engine::init() {
 #endif
 
 	// Create drawing window
-	window = glfwCreateWindow(scrWidth, scrHeight, "Ibex Engine", NULL, NULL);
-	if (window == NULL)
-	{
+	GLFWwindow* window(glfwCreateWindow(scrWidth, scrHeight, "Ibex Engine", NULL, NULL));
+	if (window == nullptr) {
 		std::cout << "Error:: Ibex failed to load up GLFW (Linking Error)" << std::endl;
 		glfwTerminate();
 		return -1;
@@ -57,37 +68,35 @@ int Engine::init() {
 		return -1;
 	}
 
+	this->window.reset(window);
+
 	// Enable testing with the depth buffer
 	glEnable(GL_DEPTH_TEST);
 
 	// Explicitly set window dimensions
-	activeWorld->setWindow(
-		WindowConfig{
-			std::make_pair(scrWidth, scrHeight)     // dim
-		}
-	);
+	activeWorld->setWindowDim(scrWidth, scrHeight);
 
 	// Load the world
 	activeWorld->load();
 
 	// Bind event callbacks
-	glfwSetFramebufferSizeCallback(window, &Event::framebuffer_size_callback);
-	glfwSetErrorCallback(&Event::error_callback);
-	glfwSetMouseButtonCallback(window, &Event::mouse_callback);
-	glfwSetScrollCallback(window, &Event::scroll_callback);
+	glfwSetFramebufferSizeCallback(window, &Listener::framebuffer_size_callback);
+	glfwSetErrorCallback(&Listener::error_callback);
+	glfwSetMouseButtonCallback(window, &Listener::mouse_callback);
+	glfwSetScrollCallback(window, &Listener::scroll_callback);
 
 	return 0;
 }
 
 int Engine::tick() {
 	// Tick events and process
-	Event::tick(window);
+	Event::tick(std::shared_ptr<GLFWwindow>(window.get(), windowDeleter));
 
 	// Call the world tick callback
 	activeWorld->onTick();
 
 	// Swap buffers
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(window.get());
 
 	// Poll for GLFW events
 	glfwPollEvents();
@@ -98,7 +107,7 @@ int Engine::tick() {
 int Engine::dump() {
 	// Verify if core dumped
 	if (!dumped) {
-		dumped = true;
+		isDumped = true;
 	}
 
 	// Perform cleanup on the active world
@@ -107,4 +116,8 @@ int Engine::dump() {
 	glfwTerminate();
 
 	return 0;
+}
+
+World* Engine::getActiveWorld() {
+	return activeWorld.get();
 }
