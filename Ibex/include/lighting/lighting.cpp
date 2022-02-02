@@ -19,6 +19,7 @@ LightSource::LightSource(glm::vec3 color, glm::vec3 ambientFactor, glm::vec3 dif
 Lighting::Lighting() :
 	VAO(-1),
 	VBO(-1),
+	EBO(-1),
 	lightingShader(nullptr)
 { }
 
@@ -35,6 +36,7 @@ Lighting::Lighting(glm::vec3 color, glm::vec3 ambientFactor, glm::vec3 diffuseFa
 }
 
 int Lighting::applyEffect(Shader& applicatorShader) {
+	applicatorShader.use();
 	applicatorShader.setVec3("light.color", lightSource.color);
 	applicatorShader.setVec3("light.ambient", lightSource.ambientFactor);
 	applicatorShader.setVec3("light.diffuse", lightSource.diffuseFactor);
@@ -43,7 +45,7 @@ int Lighting::applyEffect(Shader& applicatorShader) {
 	return 0;
 }
 
-int Lighting::setupShadersAndBuffers() {
+int Lighting::setupBuffers() {
 	// Initialize lighting shader
 	lightingShader = std::make_unique<Shader>(lightSource.vertexShaderPath, lightSource.fragmentShaderPath);
 
@@ -56,7 +58,8 @@ int Lighting::setupShadersAndBuffers() {
 	// Generate VBO for the component
 	glGenBuffers(1, &VBO);
 
-	// TODO: Check if EBO needs to be generated
+	// Generate EBO for the component
+	// glGenBuffers(1, &EBO);
 
 	/*								Buffer Binding										*/
 	/* -------------------------------------------------------------------------------- */
@@ -64,15 +67,19 @@ int Lighting::setupShadersAndBuffers() {
 	// Bind the VAO
 	glBindVertexArray(VAO);
 
+	// Bind the VBO
+	// glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	// glBufferData(GL_ARRAY_BUFFER, 1 * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+
+	// Bind the EBO
+	// glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	// glBufferData(GL_ELEMENT_ARRAY_BUFFER, locations.size() * sizeof(unsigned int), &locations[0], GL_STATIC_DRAW);
+
 	/*							Attribute Binding										*/
 	/* -------------------------------------------------------------------------------- */
 
 	// Bind vertex position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(LightSource), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	// Bind vertex position attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(LightSource), (void*)offsetof(LightSource, color));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(LightSource), reinterpret_cast<void*>(offsetof(LightSource, color)));
 	glEnableVertexAttribArray(1);
 
 	/*								Cleanup												*/
@@ -84,23 +91,23 @@ int Lighting::setupShadersAndBuffers() {
 	return 0;
 }
 
-int Lighting::draw(std::shared_ptr<Camera> camera, std::pair<double, double> scrDim) {
+int Lighting::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim) {
 	// Use the dedicated lighting shader
 	lightingShader->use();
 
-	// Set projection, view and model matrices
-	glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), (float)scrDim.first / (float)scrDim.second, 0.1f, 100.0f);
-	lightingShader->setMat4("projection", projection);
-
-	glm::mat4 view = camera->GetViewMatrix();
-	lightingShader->setMat4("view", view);
-
+	// Setting up model, view and projection matrices
 	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 view = camera->getViewMatrix();
+	glm::mat4 projection = glm::perspective(glm::radians(camera->zoom), static_cast<float>(scrDim.first) / static_cast<float>(scrDim.second), 0.1f, 100.0f);
+
+	// Setting model, view and projection matrices in the shader
 	lightingShader->setMat4("model", model);
+	lightingShader->setMat4("view", view);
+	lightingShader->setMat4("projection", projection);
 
 	// Set point styling uniforms
 	glEnable(GL_PROGRAM_POINT_SIZE);
-	lightingShader->setVec3("cameraeye", camera->Position);
+	lightingShader->setVec3("cameraeye", camera->position);
 	lightingShader->setFloat("pointsize", 25.0f);
 	lightingShader->setFloat("delta", 15.0f);
 
@@ -116,7 +123,7 @@ int Lighting::draw(std::shared_ptr<Camera> camera, std::pair<double, double> scr
 	return 0;
 }
 
-int Lighting::deleteShadersAndBuffers() {
+int Lighting::deleteBuffers() {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 

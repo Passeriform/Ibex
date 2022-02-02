@@ -23,8 +23,8 @@ public:
 	OmniDirectionLight(glm::vec3, glm::vec3);
 	OmniDirectionLight(glm::vec3, glm::vec3, glm::vec3, glm::vec3, glm::vec3);
 
-	int applyEffect(Shader&);
-	int setupShadersAndBuffers();
+	int applyEffect(Shader&) override;
+	int setupBuffers() override;
 };
 
 #endif

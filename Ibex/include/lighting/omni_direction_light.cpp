@@ -38,7 +38,7 @@ int OmniDirectionLight::applyEffect(Shader& applicatorShader) {
 	return 0;
 }
 
-int OmniDirectionLight::setupShadersAndBuffers() {
+int OmniDirectionLight::setupBuffers() {
 	// Initialize lighting shader
 	lightingShader = std::make_unique<Shader>(lightSource.vertexShaderPath, lightSource.fragmentShaderPath);
 
@@ -53,14 +53,14 @@ int OmniDirectionLight::setupShadersAndBuffers() {
 
 	// Bind the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(LightSource), &lightSource, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(OmniLightSource), &lightSource, GL_STATIC_DRAW);
 
 	// Bind vertex position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(LightSource), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(OmniLightSource), reinterpret_cast<void*>(offsetof(OmniLightSource, origin)));
 	glEnableVertexAttribArray(0);
 
 	// Bind vertex position attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(LightSource), (void*)offsetof(LightSource, color));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(OmniLightSource), reinterpret_cast<void*>(offsetof(OmniLightSource, color)));
 	glEnableVertexAttribArray(1);
 
 	// Unbind the VAO

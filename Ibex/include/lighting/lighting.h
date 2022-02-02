@@ -23,9 +23,12 @@ public:
 	LightSource(glm::vec3, glm::vec3, glm::vec3, glm::vec3);
 };
 
+// TODO: Make Lighting a wrapper around generic Mesh, declare local Mesh variable handling render of light-emanating source.
+// Call the mesh's render functions from within lighting.
+
 class Lighting {
 protected:
-	unsigned int VAO, VBO;
+	unsigned int VAO, VBO, EBO;
 
 	LightSource lightSource;
 	std::unique_ptr<Shader> lightingShader;
@@ -37,9 +40,9 @@ public:
 	Lighting(glm::vec3, glm::vec3, glm::vec3, glm::vec3);
 
 	virtual int applyEffect(Shader&);
-	virtual int setupShadersAndBuffers();
-	virtual int draw(std::shared_ptr<Camera>, std::pair<double, double>);
-	virtual int deleteShadersAndBuffers();
+	virtual int setupBuffers();
+	virtual int draw(std::shared_ptr<Camera>, std::pair<float, float>);
+	virtual int deleteBuffers();
 };
 
 #endif
