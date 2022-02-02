@@ -26,7 +26,7 @@ struct WorldOptions {
 };
 
 struct GridOptions {
-	double gridSize;
+	float gridSize;
 	glm::vec4 gridColor;
 };
 
@@ -39,21 +39,17 @@ protected:
 
 	// Grid variables
 	std::unique_ptr<Grid> grid;
-	bool showGrid;
-
-	// Shaders
-	Shader meshShader;	// TODO: Move into mesh instead.
-	Shader gridShader;	// TODO: Move into grid instead.
 
 	std::vector<std::shared_ptr<Camera>> cameras;
 	std::vector<std::shared_ptr<Mesh>> elements;
 	std::vector<std::shared_ptr<Lighting>> lightSources;
+	std::shared_ptr<Camera> activeCamera;
 
 	template <typename CT = Camera, typename... PT>
 	int addCamera(PT&&... parameters) {
 		std::shared_ptr<Camera> camera = std::make_shared<CT>(std::forward<PT>(parameters)...);
 		cameras.emplace_back(camera);
-		// TODO: Set last added camera as active.
+		activeCamera = camera;
 		return 0;
 	}
 

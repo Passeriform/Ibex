@@ -12,16 +12,13 @@ World::World() :
 			),
 		}
 	),
-	gridOptions({ 32, glm::vec4(127.0f / 255.0f, 127.0f / 255.0f, 127.0f / 255.0f, 1.0f) }),
-	showGrid(true)
+	gridOptions({ 32, glm::vec4(127.0f / 255.0f, 127.0f / 255.0f, 127.0f / 255.0f, 1.0f) })
 { }
 
 World::World(WindowOptions windowOptions, WorldOptions worldOptions, GridOptions gridOptions) :
 	windowOptions(windowOptions),
 	worldOptions(worldOptions),
-	gridOptions(gridOptions),
-	// TODO: Move to Grid.cpp
-	showGrid(true)
+	gridOptions(gridOptions)
 { }
 
 int World::setWindowDim(unsigned int width, unsigned int height) {
@@ -30,5 +27,6 @@ int World::setWindowDim(unsigned int width, unsigned int height) {
 }
 
 std::shared_ptr<Camera>& World::getActiveCamera() {
-	return cameras[0];
+	if (!activeCamera) return cameras[0];
+	return activeCamera;
 }

@@ -9,9 +9,9 @@ class Void : public World {
 public:
 	Void();
 	Void(WindowOptions, WorldOptions, GridOptions);
-	int load();
-	int onTick();
-	int cleanup();
+	int load() override;
+	int onTick() override;
+	int cleanup() override;
 };
 
 #endif
