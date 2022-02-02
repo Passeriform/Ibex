@@ -7,15 +7,16 @@
 #include "camera.h"
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) :
-	Front(glm::vec3(0.0f, 0.0f, -1.0f)),
-	MovementSpeed(Constants::SPEED),
-	MouseSensitivity(Constants::SENSITIVITY),
-	Zoom(Constants::ZOOM)
+	front(glm::vec3(0.0f, 0.0f, -1.0f)),
+	movementSpeed(Constants::SPEED),
+	mouseSensitivity(Constants::SENSITIVITY),
+	zoom(Constants::ZOOM),
+	inverted(false),
+	position(position),
+	worldUp(up),
+	yaw(yaw),
+	pitch(pitch)
 {
-	Position = position;
-	WorldUp = up;
-	Yaw = yaw;
-	Pitch = pitch;
 	updateCameraVectors();
 }
 
@@ -25,62 +26,74 @@ Camera::Camera(
 	float upX, float upY, float upZ,
 	float yaw, float pitch
 ) :
-	Front(glm::vec3(0.0f, 0.0f, -1.0f)),
-	MovementSpeed(Constants::SPEED),
-	MouseSensitivity(Constants::SENSITIVITY),
-	Zoom(Constants::ZOOM)
-{
-	Position = glm::vec3(posX, posY, posZ);
-	WorldUp = glm::vec3(upX, upY, upZ);
-	Yaw = yaw;
-	Pitch = pitch;
-	updateCameraVectors();
+	Camera(glm::vec3(posX, posY, posZ), glm::vec3(upX, upY, upZ), yaw, pitch)
+{ }
+
+glm::mat4 Camera::getViewMatrix() {
+	return glm::lookAt(position, position + front, up);
 }
 
-glm::mat4 Camera::GetViewMatrix() {
-	return glm::lookAt(Position, Position + Front, Up);
+/// Dolly, Truck and Pedestal
+void Camera::moveCamera(CameraMovement direction, float deltaTime) {
+	float velocity = movementSpeed * deltaTime;
+	if (direction == CameraMovement::FORWARD) position += front * velocity;
+	if (direction == CameraMovement::BACKWARD) position -= front * velocity;
+	if (direction == CameraMovement::LEFT) position -= right * velocity;
+	if (direction == CameraMovement::RIGHT) position += right * velocity;
+	if (direction == CameraMovement::UP) position += up * velocity;
+	if (direction == CameraMovement::DOWN) position -= up * velocity;
 }
 
-void Camera::MoveCamera(CameraMovement direction, float deltaTime) {
-	float velocity = MovementSpeed * deltaTime;
-	if (direction == CameraMovement::FORWARD) Position += Front * velocity;
-	if (direction == CameraMovement::BACKWARD) Position -= Front * velocity;
-	if (direction == CameraMovement::LEFT) Position -= Right * velocity;
-	if (direction == CameraMovement::RIGHT) Position += Right * velocity;
-}
 
-// Processes input received from a mouse input system. Expects the offset value
-// in both the x and y direction.
-void Camera::RotateCamera(float xoffset, float yoffset, GLboolean constrainPitch) {
-	xoffset *= MouseSensitivity;
-	yoffset *= MouseSensitivity;
+/// Pan and Tilt
+///
+/// Processes input received from a mouse input system. Expects the offset value
+/// in both the x and y direction.
+void Camera::rotateCamera(float xoffset, float yoffset, GLboolean constrainPitch) {
+	xoffset *= mouseSensitivity;
+	yoffset *= mouseSensitivity;
 
-	Yaw += xoffset;
-	Pitch += yoffset;
+	yaw += (inverted ? -xoffset : xoffset);
+	pitch += (inverted ? -xoffset : yoffset);
 
 	// Make sure that when pitch is out of bounds, screen doesn't get flipped
 	if (constrainPitch) {
-		Pitch = boost::algorithm::clamp(Pitch, -89.0f, 89.0f);
+		pitch = boost::algorithm::clamp(pitch, -89.0f, 89.0f);
 	}
 
-	// Update Front, Right and Up Vectors using the updated Euler angles
+	// Update front, right and up vectors using the updated Euler angles
 	updateCameraVectors();
 }
 
-// Processes input received from a mouse scroll-wheel event. Only requires input
-// on the vertical wheel-axis
-void Camera::ZoomCamera(float yoffset) {
-	Zoom = boost::algorithm::clamp(Zoom - yoffset, 1.0f, 45.0f);
+/// Zoom
+///
+/// Processes input received from a mouse scroll-wheel event. Requires input
+/// on the vertical wheel-axis
+void Camera::zoomCamera(float yoffset) {
+	zoom = boost::algorithm::clamp(zoom - yoffset, 1.0f, 45.0f);
+
+	// Update front, right and up vectors using the updated Euler angles
+	updateCameraVectors();
+}
+
+/// Dolly
+///
+/// Dolly movement forwards/backwards
+void Camera::dollyCamera(float offset) {
+	if ((zoom - offset) == boost::algorithm::clamp(zoom - offset, 1.0f, 45.0f)) {
+		zoomCamera(offset);
+		moveCamera((offset < 0) ? CameraMovement::FORWARD : CameraMovement::BACKWARD, abs(offset));
+	}
 }
 
 void Camera::updateCameraVectors() {
-	// Calculate the new Front vector
-	glm::vec3 front;
-	front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-	front.y = sin(glm::radians(Pitch));
-	front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-	Front = glm::normalize(front);
-	// Also re-calculate the Right and Up vector
-	Right = glm::normalize(glm::cross(Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-	Up = glm::normalize(glm::cross(Right, Front));
+	// Calculate the new front vector
+	glm::vec3 newFront;
+	newFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	newFront.y = sin(glm::radians(pitch));
+	newFront.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front = glm::normalize(newFront);
+	// Also re-calculate the right and up vector
+	right = glm::normalize(glm::cross(front, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+	up = glm::normalize(glm::cross(right, front));
 }
