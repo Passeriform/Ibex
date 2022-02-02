@@ -4,17 +4,22 @@
 #include "grid.h"
 
 Grid::Grid(std::pair<int, int> dim, int gridSize, glm::vec3 color) : Mesh() {
-	int slicex = dim.first / (float)gridSize;
-	int slicey = dim.second / (float)gridSize;
+	vertexShaderPath = "shaders/gridShader.vert";
+	fragmentShaderPath = "shaders/gridShader.frag";
+
+	show = true;
+
+	int slicex = dim.first / static_cast<float>(gridSize);
+	int slicey = dim.second / static_cast<float>(gridSize);
 
 	// vertex positions
 	for (int i = -(slicey / 2); i < (slicey / 2); i++) {
 		for (int j = -(slicex / 2); j < (slicex / 2); j++) {
-			float x = (float)j;
+			float x = static_cast<float>(j);
 			float y = 0;
-			float z = (float)i;
+			float z = static_cast<float>(i);
 
-			vertices.emplace_back(Vertex(glm::vec3(x, y, z), glm::vec3(0.0f, 0.0f, 0.0f), color));
+			vertices.emplace_back(Vertex(glm::vec3(x, y, z), glm::vec3(0.0f, 1.0f, 0.0f), color));
 		}
 	}
 
@@ -49,10 +54,18 @@ Grid::Grid(std::pair<int, int> dim, int gridSize, glm::vec3 color) : Mesh() {
 	}
 }
 
-int Grid::draw() {
-	glBindVertexArray(VAO);
-	glDrawElements(GL_LINES, locations.size(), GL_UNSIGNED_INT, NULL);
-	glBindVertexArray(0);
+int Grid::bindAttributes() {
+	// Bind vertex position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, position)));
+	glEnableVertexAttribArray(0);
+
+	// Bind color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, color)));
+	glEnableVertexAttribArray(1);
 
 	return 0;
+}
+
+int Grid::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, GLenum drawMode) {
+	return Mesh::draw(camera, scrDim, GL_LINES);
 }

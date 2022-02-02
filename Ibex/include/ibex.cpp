@@ -3,8 +3,8 @@
 #include <assimp/postprocess.h>
 
 #include <mesh/mesh.h>
-#include <events/event.h>
-#include <events/listener.h>
+#include <event/event.h>
+#include <event/listener.h>
 
 #include "ibex.h"
 
@@ -24,9 +24,8 @@ Engine::Engine(Engine& engine) :
 
 int Engine::init() {
 	// Window dimensions
-	// TODO: Fetch from the client window preferences.
-	// TODO: Try removing all `new` occurance to automatic storage duration (https://stackoverflow.com/questions/8839943/why-does-the-use-of-new-cause-memory-leaks/8840302#8840302)
-	double scrWidth = 32 * 32, scrHeight = 32 * 32;
+	// TODO: [Waiting for Qt] Fetch from the client window preferences.
+	float scrWidth = 32 * 32, scrHeight = 32 * 32;
 
 	// Initialize GLFW
 	if (!glfwInit()) {
@@ -62,7 +61,7 @@ int Engine::init() {
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Load GLAD
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
 	{
 		std::cout << "GLAD couldn't be loaded!!!" << std::endl;
 		return -1;
@@ -84,13 +83,16 @@ int Engine::init() {
 	glfwSetErrorCallback(&Listener::error_callback);
 	glfwSetMouseButtonCallback(window, &Listener::mouse_callback);
 	glfwSetScrollCallback(window, &Listener::scroll_callback);
+	glfwSetKeyCallback(window, &Listener::key_callback);
 
 	return 0;
 }
 
 int Engine::tick() {
 	// Tick events and process
-	Event::tick(std::shared_ptr<GLFWwindow>(window.get(), windowDeleter));
+	Event::tick(
+		std::shared_ptr<GLFWwindow>(window.get(), [](GLFWwindow*) {})
+	);
 
 	// Call the world tick callback
 	activeWorld->onTick();
@@ -118,6 +120,6 @@ int Engine::dump() {
 	return 0;
 }
 
-World* Engine::getActiveWorld() {
-	return activeWorld.get();
+std::unique_ptr<World>& Engine::getActiveWorld() {
+	return activeWorld;
 }

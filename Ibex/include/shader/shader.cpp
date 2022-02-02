@@ -3,14 +3,14 @@
 
 Shader::Shader() : ID(-1) { }
 
-Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) : Shader() {
-	unsigned int vertexShaderId = setupShader(GL_VERTEX_SHADER, vertexPath);
-	unsigned int fragmentShaderId = setupShader(GL_FRAGMENT_SHADER, fragmentPath);
+Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) : Shader() {
+	unsigned int vertexShaderId = setupShader(GL_VERTEX_SHADER, vertexShaderPath);
+	unsigned int fragmentShaderId = setupShader(GL_FRAGMENT_SHADER, fragmentShaderPath);
 
 	bind({ vertexShaderId, fragmentShaderId });
 }
 
-Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath, const std::string& geometryPath) : Shader(vertexPath, fragmentPath) {
+Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const std::string& geometryPath) : Shader(vertexShaderPath, fragmentShaderPath) {
 	unsigned int geometryShaderId = setupShader(GL_GEOMETRY_SHADER, geometryPath);
 
 	bind({ geometryShaderId });
@@ -127,7 +127,7 @@ void Shader::checkCompileErrors(GLuint shader, std::string type) {
 }
 
 void Shader::setBool(const std::string& name, bool value) const {
-	glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
+	glUniform1i(glGetUniformLocation(ID, name.c_str()), static_cast<int>(value));
 }
 
 void Shader::setInt(const std::string& name, int value) const {

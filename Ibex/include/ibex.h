@@ -38,7 +38,7 @@ namespace Ibex {
 		int tick();
 		int dump();
 
-		World* getActiveWorld();
+		std::unique_ptr<World>& getActiveWorld();
 	};
 
 	typedef void(*EngineDeleter)(Engine*);
