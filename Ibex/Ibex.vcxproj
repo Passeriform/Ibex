@@ -20,7 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\camera\camera.cpp" />
-    <ClCompile Include="include\events\listener.cpp" />
+    <ClCompile Include="include\event\event.cpp" />
+    <ClCompile Include="include\event\listener.cpp" />
     <ClCompile Include="include\material\material_registry.cpp" />
     <ClCompile Include="include\mesh\vertex.cpp" />
     <ClCompile Include="include\model\model.cpp" />
@@ -30,6 +31,8 @@
     <ClCompile Include="vendor\glad\glad.c" />
     <ClInclude Include="include\camera\camera.h" />
     <ClInclude Include="include\constants.h" />
+    <ClInclude Include="include\event\event.h" />
+    <ClInclude Include="include\event\listener.h" />
     <ClInclude Include="include\ibex.h" />
     <ClCompile Include="include\ibex.cpp" />
     <ClInclude Include="include\material\material_registry.h" />
@@ -67,18 +70,13 @@
     <ClCompile Include="include\lighting\omni_direction_light.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\events\listener.h" />
-    <ClInclude Include="include\events\event.h" />
-    <ClCompile Include="include\events\event.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <None Include="shaders\gridShader.frag" />
     <None Include="shaders\gridShader.vert" />
     <None Include="shaders\lightShader.frag" />
     <None Include="shaders\lightShader.vert" />
-    <None Include="shaders\materialShader.frag" />
-    <None Include="shaders\materialShader.vert" />
+    <None Include="shaders\meshShader.frag" />
+    <None Include="shaders\meshShader.vert" />
     <None Include="shaders\phongMeshShader.frag" />
     <None Include="shaders\phongMeshShader.vert" />
   </ItemGroup>

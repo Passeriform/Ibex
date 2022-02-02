@@ -38,9 +38,6 @@
     <Filter Include="Source\Lighting">
       <UniqueIdentifier>{91348a64-0496-4cbd-a20d-10d007851b82}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Events">
-      <UniqueIdentifier>{599f926b-0ff1-4a05-bb34-e2ce627e069c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Utility">
       <UniqueIdentifier>{8c1fc0c5-c206-4f90-b3c9-01ba461de2ea}</UniqueIdentifier>
     </Filter>
@@ -56,11 +53,11 @@
     <Filter Include="Source\Model">
       <UniqueIdentifier>{97cfa093-7938-4fc0-8014-d800a4913757}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders\Material">
-      <UniqueIdentifier>{59984c73-d0fd-45ad-b10e-2036ea7fbe3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders\Mesh">
       <UniqueIdentifier>{303718a5-edf3-4726-b17e-421ed6c26809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Event">
+      <UniqueIdentifier>{d469aeeb-0629-408e-99ea-c6df3266a30d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,20 +73,20 @@
     <None Include="shaders\lightShader.frag">
       <Filter>Shaders\Lighting</Filter>
     </None>
-    <None Include="shaders\materialShader.vert">
-      <Filter>Shaders\Material</Filter>
-    </None>
     <None Include="gui\Workspace.ui">
       <Filter>GUI</Filter>
     </None>
     <None Include="packages.config" />
-    <None Include="shaders\materialShader.frag">
-      <Filter>Shaders\Material</Filter>
-    </None>
     <None Include="shaders\phongMeshShader.frag">
       <Filter>Shaders\Mesh</Filter>
     </None>
     <None Include="shaders\phongMeshShader.vert">
+      <Filter>Shaders\Mesh</Filter>
+    </None>
+    <None Include="shaders\meshShader.frag">
+      <Filter>Shaders\Mesh</Filter>
+    </None>
+    <None Include="shaders\meshShader.vert">
       <Filter>Shaders\Mesh</Filter>
     </None>
   </ItemGroup>
@@ -149,11 +146,11 @@
     <ClCompile Include="include\mesh\primitives\triangle.cpp">
       <Filter>Source\Mesh\Primitives</Filter>
     </ClCompile>
-    <ClCompile Include="include\events\event.cpp">
-      <Filter>Source\Events</Filter>
+    <ClCompile Include="include\event\event.cpp">
+      <Filter>Source\Event</Filter>
     </ClCompile>
-    <ClCompile Include="include\events\listener.cpp">
-      <Filter>Source\Events</Filter>
+    <ClCompile Include="include\event\listener.cpp">
+      <Filter>Source\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +168,6 @@
     </ClInclude>
     <ClInclude Include="include\world\world.h">
       <Filter>Source\World</Filter>
-    </ClInclude>
-    <ClInclude Include="include\world\void.h">
-      <Filter>Source\World\Void</Filter>
     </ClInclude>
     <ClInclude Include="include\mesh\grid.h">
       <Filter>Source\Mesh\Grid</Filter>
@@ -214,11 +208,14 @@
     <ClInclude Include="include\shader\shader.h">
       <Filter>Source\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="include\events\event.h">
-      <Filter>Source\Events</Filter>
+    <ClInclude Include="include\event\event.h">
+      <Filter>Source\Event</Filter>
     </ClInclude>
-    <ClInclude Include="include\events\listener.h">
-      <Filter>Source\Events</Filter>
+    <ClInclude Include="include\event\listener.h">
+      <Filter>Source\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="include\world\void.h">
+      <Filter>Source\World\Void</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
