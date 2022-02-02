@@ -20,16 +20,6 @@ struct MaterialLightMap {
 	float shininess;
 };
 
-/*
-struct TextureList : std::vector<std::unique_ptr<Texture>> {
-	using Base = std::vector<std::unique_ptr<Texture>>;
-	using Base::Base;
-	TextureList() = default;
-	TextureList(TextureList&&) = default;
-	TextureList& operator=(TextureList&&) = default;
-};
-*/
-
 class Material {
 	std::vector<std::unique_ptr<Texture>> textures;
 
@@ -41,19 +31,10 @@ public:
 	Material(const Material&);
 	Material& operator=(const Material&);
 
-	/*
-	Material(std::vector<Texture*>);
-	Material(std::vector<std::unique_ptr<Texture>>);
-	*/
-
 	Material(MaterialLightMap);
 	Material(MaterialType);
 	Material(MaterialType, std::vector<std::unique_ptr<Texture>>);
 	Material(MaterialLightMap, std::vector<std::unique_ptr<Texture>>);
-	/*
-	Material(MaterialType, std::vector<Texture*>);
-	Material(MaterialLightMap, std::vector<Texture*>);
-	*/
 
 	bool isTextured();
 	int setupBuffers();

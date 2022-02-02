@@ -15,7 +15,6 @@ Material::Material() :
 	)
 { }
 
-// HACK: Hack for making unique_ptr of textures work
 Material::Material(const Material& material) : Material(material.materialLightMap) {
 	textures.reserve(material.textures.size());
 	std::transform(
@@ -33,6 +32,7 @@ Material& Material::operator=(const Material& material) {
 	return *this;
 }
 
+
 Material::Material(MaterialLightMap materialLightMap) : Material() {
 	this->materialLightMap = materialLightMap;
 }
@@ -44,37 +44,6 @@ Material::Material(MaterialLightMap materialLightMap, std::vector<std::unique_pt
 }
 
 Material::Material(MaterialType materialType, std::vector<std::unique_ptr<Texture>> textures) : Material(MATERIAL_REGISTRY[materialType], std::move(textures)) { }
-
-/*
-Material::Material(std::vector<Texture*> textures) : Material() {
-	for (auto texture : textures) {
-		this->textures.emplace_back(std::make_unique<Texture>(*texture));
-	}
-	/\*
-	std::transform(
-		textures.begin(),
-		textures.end(),
-		this->textures.begin(),
-		[](Texture* texture) -> std::unique_ptr<Texture> { return std::make_unique<Texture>(*texture); }
-	);
-	*\/
-}
-
-Material::Material(std::vector<std::unique_ptr<Texture>> textures) : Material() {
-	for (auto& texture : textures) {
-		this->textures.emplace_back(std::move(texture));
-	}
-	/\*
-	this->textures = std::move(textures);
-	*\/
-}
-
-Material::Material(MaterialLightMap materialLightMap, std::vector<Texture*> textures) : Material(textures) {
-	this->materialLightMap = materialLightMap;
-}
-
-Material::Material(MaterialType materialType, std::vector<Texture*> textures) : Material(MATERIAL_REGISTRY[materialType], textures) { }
-*/
 
 bool Material::isTextured() {
 	return textures.size();
