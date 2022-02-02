@@ -18,7 +18,7 @@ public:
 	glm::vec3 Tangent;
 	glm::vec3 Bitangent;
 	unsigned int m_BoneIDs[MAX_BONE_INFLUENCE];
-	double m_Weights[MAX_BONE_INFLUENCE];
+	float m_Weights[MAX_BONE_INFLUENCE];
 	*/
 
 	// Constructors with default fallbacks (Will accept values in order of parameters)

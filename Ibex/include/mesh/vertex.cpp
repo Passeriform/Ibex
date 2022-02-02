@@ -31,7 +31,6 @@ std::vector<Vertex> Vertex::fromComponents(
 ) {
 	std::vector<Vertex> vertices;
 
-	// TODO: Use algorithms instead.
 	for (auto i = 0;
 		i < posVec.size() &&
 		i < normVec.size() &&
