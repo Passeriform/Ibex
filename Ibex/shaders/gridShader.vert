@@ -4,10 +4,15 @@ layout (location = 1) in vec3 mColor;
 
 out vec3 objColor;
 
-uniform mat4 model, view, projection;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+// uniform modelInverse; // Set when CPU-precompute implemented
 
 void main()
 {
-	gl_Position = projection * ( view * ( model * vec4(mPos, 1.0f) ) );
 	objColor = mColor;
+
+	gl_Position = projection * ( view * ( model * vec4(mPos, 1.0f) ) ); // TODO: Precompute MVP matrix on CPU instead
 }

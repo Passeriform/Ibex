@@ -24,9 +24,16 @@ struct Light {
 uniform vec3 viewPos;
 uniform Material material;
 uniform Light light;
+uniform bool showWireframe;
+uniform vec3 wireframeColor;
 
 void main()
 {
+    if (showWireframe) {
+        outColor = vec4(wireframeColor, 1.0);
+        return;
+    }
+    
     vec3 ambient, diffuse, specular;
     
     // Ambient Lighting
