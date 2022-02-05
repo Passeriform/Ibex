@@ -82,13 +82,9 @@ int Void::onTick() {
 	// Clearing color and depth buffer each cycle
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 	// Draw grid
 	if (grid->show) {
-		// TODO: Remove this line width reset and bake it into draw method.
-		glLineWidth(1);
 		grid->draw(activeCamera, windowOptions.dim);
-
 	}
 
 	// Draw all elements
@@ -99,7 +95,9 @@ int Void::onTick() {
 			light->applyEffect(element->getShader());
 		}
 
-		element->draw(activeCamera, windowOptions.dim);
+		DrawOptions drawOptions = DrawOptions();
+		drawOptions.showWireframe = showWireframe;
+		element->draw(activeCamera, windowOptions.dim, drawOptions);
 	}
 
 	// Draw all light sources

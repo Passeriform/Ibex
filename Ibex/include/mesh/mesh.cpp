@@ -1,8 +1,18 @@
 #include <algorithm>
+#include <functional>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <utility/utility.h>
+
 #include "mesh.h"
+
+DrawOptions::DrawOptions() : DrawOptions(GL_TRIANGLES, false) { }
+
+DrawOptions::DrawOptions(GLenum drawMode, bool showWireframe) :
+	drawMode(drawMode),
+	showWireframe(showWireframe)
+{ }
 
 Mesh::Mesh() :
 	VAO(-1),
@@ -140,9 +150,29 @@ int Mesh::setupBuffers() {
 	return 0;
 }
 
-int Mesh::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, GLenum drawMode) {
+int Mesh::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, DrawOptions drawOptions) {
 	// Using mesh shader
 	meshShader->use();
+
+	// Wrap current scope in wireframe setup and teardown.
+	auto ctxt_marker = with_context<bool>(
+		// Run on construction
+		[showWireframe = drawOptions.showWireframe]() {
+		if (showWireframe) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+
+		return showWireframe;
+	},
+		// Run on destruction
+		[]() {
+		glLineWidth(1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	);
 
 	// Setting up model, view and projection matrices
 	glm::mat4 model = glm::mat4(1.0f);
@@ -171,13 +201,19 @@ int Mesh::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, G
 		meshShader->setVec3("material.specular", material->materialLightMap.specular);
 	}
 
-	meshShader->setFloat("material.shininess", material->materialLightMap.shininess);	// Add shininess to shader
+	// Add shininess to shader
+	meshShader->setFloat("material.shininess", material->materialLightMap.shininess);
+
+	// Set wireframe mode on shader
+	// TODO: Get from global world settings.
+	meshShader->setVec3("wireframeColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	meshShader->setBool("showWireframe", drawOptions.showWireframe);
 
 	// Bind the VAO before drawing lightSources
 	glBindVertexArray(VAO);
 
 	// Draw the elements
-	glDrawElements(drawMode, locations.size(), GL_UNSIGNED_INT, NULL);
+	glDrawElements(drawOptions.drawMode, locations.size(), GL_UNSIGNED_INT, NULL);
 
 	// Unbind the VAO
 	glBindVertexArray(0);

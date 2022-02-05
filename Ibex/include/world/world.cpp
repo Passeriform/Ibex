@@ -26,6 +26,11 @@ int World::setWindowDim(unsigned int width, unsigned int height) {
 	return 0;
 }
 
+int World::toggleWireframe() {
+	this->showWireframe = !showWireframe;
+	return 0;
+}
+
 std::shared_ptr<Camera>& World::getActiveCamera() {
 	if (!activeCamera) return cameras[0];
 	return activeCamera;

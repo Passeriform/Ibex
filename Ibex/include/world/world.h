@@ -37,6 +37,9 @@ protected:
 	WorldOptions worldOptions;
 	GridOptions gridOptions;
 
+	// Wireframe
+	bool showWireframe;
+
 	// Grid variables
 	std::unique_ptr<Grid> grid;
 
@@ -77,6 +80,7 @@ public:
 	virtual int cleanup() = 0;
 
 	int setWindowDim(unsigned int, unsigned int);
+	int toggleWireframe();
 	std::shared_ptr<Camera>& getActiveCamera();
 };
 

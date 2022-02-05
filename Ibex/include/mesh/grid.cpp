@@ -66,6 +66,6 @@ int Grid::bindAttributes() {
 	return 0;
 }
 
-int Grid::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, GLenum drawMode) {
-	return Mesh::draw(camera, scrDim, GL_LINES);
+int Grid::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, DrawOptions drawOptions) {
+	return Mesh::draw(camera, scrDim, drawOptions);
 }

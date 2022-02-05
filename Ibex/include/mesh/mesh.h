@@ -15,6 +15,14 @@
 #include <shader/shader.h>
 #include <shader/texture.h>
 
+struct DrawOptions {
+	GLenum drawMode;
+	bool showWireframe;
+
+	DrawOptions();
+	DrawOptions(GLenum, bool);
+};
+
 class Mesh {
 protected:
 	unsigned int VAO, VBO, EBO;
@@ -43,7 +51,7 @@ public:
 
 	// Necessary overloadable caller methods.
 	virtual int setupBuffers();
-	virtual int draw(std::shared_ptr<Camera>, std::pair<float, float>, GLenum drawMode = GL_TRIANGLES);
+	virtual int draw(std::shared_ptr<Camera>, std::pair<float, float>, DrawOptions = { GL_TRIANGLES, false });
 	virtual int deleteBuffers();
 };
 
