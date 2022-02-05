@@ -4,14 +4,17 @@
 #define UTILITY_H
 
 #include <vector>
+#include <functional>
+#include <memory>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 // TODO: Sort imports. Use only required and purge extreneous.
 
-typedef void(*GLFWwindowDeleter)(GLFWwindow*);
-auto windowDeleter = [](GLFWwindow*) {};
+using GLFWwindowDeleter = std::function<void(GLFWwindow*)>;
+extern GLFWwindowDeleter defaultWindowDeleter;
+extern GLFWwindowDeleter emptyWindowDeleter;
 
 template <typename... T>
 std::vector<std::tuple_element_t<0, std::tuple<T...>>> construct_inplace_vec_by_move(T&&... rest) {

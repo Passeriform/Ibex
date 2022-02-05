@@ -41,8 +41,9 @@ namespace Ibex {
 		std::unique_ptr<World>& getActiveWorld();
 	};
 
-	typedef void(*EngineDeleter)(Engine*);
-	auto defaultEngineDeleter = [](Engine* core) { core->dump(); };
+	using EngineDeleter = std::function<void(Engine*)>;
+	extern EngineDeleter defaultEngineDeleter;
+	extern EngineDeleter emptyEngineDeleter;
 }
 
 #endif

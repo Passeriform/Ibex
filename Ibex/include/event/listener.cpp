@@ -27,7 +27,7 @@ void Listener::mouse_callback(GLFWwindow* window, int button, int action, int mo
 void Listener::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	std::unique_ptr<Ibex::Engine, Ibex::EngineDeleter> engine(
 		static_cast<Ibex::Engine*>(glfwGetWindowUserPointer(window)),
-		[](Ibex::Engine*) {}
+		Ibex::emptyEngineDeleter
 	);
 	std::unique_ptr<World>& world = engine->getActiveWorld();
 
@@ -39,7 +39,7 @@ void Listener::key_callback(GLFWwindow* window, int key, int scancode, int actio
 void Listener::scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
 	std::unique_ptr<Ibex::Engine, Ibex::EngineDeleter> engine(
 		static_cast<Ibex::Engine*>(glfwGetWindowUserPointer(window)),
-		[](Ibex::Engine*) {}
+		Ibex::emptyEngineDeleter
 	);
 	std::shared_ptr<Camera> camera = engine->getActiveWorld()->getActiveCamera();
 

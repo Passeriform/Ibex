@@ -10,9 +10,12 @@
 
 using namespace Ibex;
 
+EngineDeleter Ibex::defaultEngineDeleter = [](Engine* core) { core->dump(); };
+EngineDeleter Ibex::emptyEngineDeleter = [](Engine*) {};
+
 Engine::Engine() :
-	window(std::unique_ptr<GLFWwindow, GLFWwindowDeleter> {nullptr, windowDeleter}),
-	activeWorld(std::move(nullptr)),
+	window(std::unique_ptr<GLFWwindow, GLFWwindowDeleter> {nullptr, defaultWindowDeleter}),
+	activeWorld(std::unique_ptr<World>(nullptr)),
 	isDumped(false)
 { };
 
@@ -91,7 +94,7 @@ int Engine::init() {
 int Engine::tick() {
 	// Tick events and process
 	Event::tick(
-		std::shared_ptr<GLFWwindow>(window.get(), [](GLFWwindow*) {})
+		std::shared_ptr<GLFWwindow>(window.get(), emptyWindowDeleter)
 	);
 
 	// Call the world tick callback
