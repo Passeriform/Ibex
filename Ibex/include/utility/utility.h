@@ -34,4 +34,16 @@ void construct_vec_by_move(std::vector<T>& packVec, T elem) {
 	packVec.emplace_back(std::move(elem));
 }
 
+template <typename T>
+using scope_marker = std::unique_ptr<T, std::function<void(T*)>>;
+
+template <typename T>
+scope_marker<T> with_context(std::function<T()> ctor, std::function<void()> _dtor) {
+	decltype(_dtor)* dtor = new decltype(_dtor)(_dtor);
+	scope_marker<T> marker(new bool(ctor()), [dtor](bool* mark) { (*dtor)(); });
+	return std::move(marker);
+}
+
+void run_contextually(std::function<void()> ctor, std::function<void()> dtor, std::function<void()> delegate);
+
 #endif
