@@ -27,6 +27,7 @@
     <ClCompile Include="include\model\model.cpp" />
     <ClCompile Include="include\shader\shader.cpp" />
     <ClCompile Include="include\shader\texture.cpp" />
+    <ClCompile Include="include\utility\utility.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="vendor\glad\glad.c" />
     <ClInclude Include="include\camera\camera.h" />

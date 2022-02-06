@@ -103,9 +103,6 @@
     <ClCompile Include="include\world\world.cpp">
       <Filter>Source\World</Filter>
     </ClCompile>
-    <ClCompile Include="include\world\void.cpp">
-      <Filter>Source\World\Void</Filter>
-    </ClCompile>
     <ClCompile Include="include\mesh\grid.cpp">
       <Filter>Source\Mesh\Grid</Filter>
     </ClCompile>
@@ -151,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="include\event\listener.cpp">
       <Filter>Source\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="include\world\void.cpp">
+      <Filter>Source\World\Void</Filter>
+    </ClCompile>
+    <ClCompile Include="include\utility\utility.cpp">
+      <Filter>Source\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
