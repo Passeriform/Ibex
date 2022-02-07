@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <iterator>
-#include <glm/glm.hpp>
 
 #include "material.h"
 

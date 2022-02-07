@@ -3,8 +3,6 @@
 #ifndef LISTENER_H
 #define LISTENER_H
 
-#include <ibex.h>
-
 // High latency event listeners. If high speed events required, add to events instead.
 namespace Listener {
 	void error_callback(int, const char*);

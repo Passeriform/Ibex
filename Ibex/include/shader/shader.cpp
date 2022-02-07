@@ -1,4 +1,8 @@
+#include <fstream>
+#include <sstream>
+#include <iostream>
 #include <exception>
+
 #include "shader.h"
 
 Shader::Shader() : ID(-1) { }

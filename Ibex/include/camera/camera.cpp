@@ -1,8 +1,4 @@
-#include <glad/glad.h>
-
 #include <boost/algorithm/clamp.hpp>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 #include "camera.h"
 
@@ -44,7 +40,6 @@ void Camera::moveCamera(CameraMovement direction, float deltaTime) {
 	if (direction == CameraMovement::DOWN) position -= up * velocity;
 }
 
-
 /// Pan and Tilt
 ///
 /// Processes input received from a mouse input system. Expects the offset value
@@ -64,6 +59,22 @@ void Camera::rotateCamera(float xoffset, float yoffset, GLboolean constrainPitch
 	// Update front, right and up vectors using the updated Euler angles
 	updateCameraVectors();
 }
+
+/// Roll
+///
+/// Processes input received from a mouse input system. Expects the offset value
+/// in x direction.
+/*
+void Camera::rollCamera(float xoffset, GLboolean constrainPitch) {
+	// NOTE: Postponing implementation until vectors are converted to quaternion versors for avoiding gimbal lock.
+}
+*/
+
+// TODO: Implement focus system, lenses, macro, hdr and view space, speed-momentum, inertia
+// TODO: Implement hot-attachable physics system
+// TODO: Implement collision system
+// TODO: Implement actual gravity system
+// TODO: Implement raycasting and raytracing
 
 /// Zoom
 ///

@@ -3,8 +3,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#include <glm/glm.hpp>
-
 namespace Constants {
 	constexpr auto YAW = -90.0f;
 	constexpr auto PITCH = 0.0f;

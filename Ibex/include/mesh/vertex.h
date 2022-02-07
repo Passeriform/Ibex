@@ -6,8 +6,6 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include <material/material.h>
-
 class Vertex {
 public:
 	glm::vec3 position;

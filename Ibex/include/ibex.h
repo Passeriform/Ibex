@@ -3,10 +3,9 @@
 #ifndef IBEX_H
 #define IBEX_H
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
+#include <memory>
 #include <world/world.h>
+#include <utility/utility.h>
 
 namespace Ibex {
 	class Engine {

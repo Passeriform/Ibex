@@ -1,8 +1,4 @@
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
-#include <mesh/mesh.h>
+#include <iostream>
 #include <event/event.h>
 #include <event/listener.h>
 

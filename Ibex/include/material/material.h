@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include <glm/glm.hpp>
+
 #include <shader/texture.h>
 #include <utility/utility.h>
 

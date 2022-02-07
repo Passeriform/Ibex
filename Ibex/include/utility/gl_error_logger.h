@@ -6,7 +6,6 @@
 #include <iostream>
 #include <string>
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 inline GLenum glCheckError_(const std::string file, int line)
 {
