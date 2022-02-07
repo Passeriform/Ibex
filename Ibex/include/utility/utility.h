@@ -37,10 +37,19 @@ void construct_vec_by_move(std::vector<T>& packVec, T elem) {
 template <typename T>
 using scope_marker = std::unique_ptr<T, std::function<void(T*)>>;
 
-template <typename T>
+template <typename NV, typename T = std::enable_if<!std::is_same<NV, void>::value>>
 scope_marker<T> with_context(std::function<T()> ctor, std::function<void()> _dtor) {
 	decltype(_dtor)* dtor = new decltype(_dtor)(_dtor);
-	scope_marker<T> marker(new bool(ctor()), [dtor](bool* mark) { (*dtor)(); });
+	scope_marker<T> marker(new T(ctor()), [dtor](T* mark) { (*dtor)(); });
+	return std::move(marker);
+}
+
+// Fallback for void types
+template <typename V, typename T = std::enable_if<!std::is_same<V, void>::value>>
+scope_marker<T> with_context(std::function<void()> ctor, std::function<void()> _dtor) {
+	decltype(_dtor)* dtor = new decltype(_dtor)(_dtor);
+	ctor();
+	scope_marker<T> marker(NULL, [dtor](T* mark) { (*dtor)(); });
 	return std::move(marker);
 }
 
