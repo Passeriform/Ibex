@@ -25,7 +25,7 @@ struct WorldOptions {
 };
 
 struct GridOptions {
-	float gridSize;
+	int gridSize;
 	glm::vec4 gridColor;
 };
 

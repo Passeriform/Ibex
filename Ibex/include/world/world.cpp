@@ -4,16 +4,16 @@ World::World() :
 	windowOptions({ std::make_pair(1024, 1024) }),
 	worldOptions(
 		{
-			glm::vec4(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f),			// backgroundColor
-			glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f),		// foregroundColor
-			glm::vec4(0.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f),		// wireframeColor
+			glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f),			// backgroundColor
+			glm::vec4(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f),		// foregroundColor
+			glm::vec4(0.0f / 255.0f, 0.0f / 255.0f, 255.0f / 255.0f, 1.0f),		// wireframeColor
 			std::make_pair(															// bounds
 				glm::vec3(-1000.0f, -1000.0f, -1000.0f),
 				glm::vec3(1000.0f, 1000.0f, 1000.0f)
 			),
 		}
 	),
-	gridOptions({ 32, glm::vec4(127.0f / 255.0f, 127.0f / 255.0f, 127.0f / 255.0f, 1.0f) })
+	gridOptions({ 32, glm::vec4(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f) })
 { }
 
 World::World(WindowOptions windowOptions, WorldOptions worldOptions, GridOptions gridOptions) :
