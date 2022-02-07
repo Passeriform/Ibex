@@ -3,13 +3,11 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include <utility>
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <shader/shader.h>
 #include <camera/camera.h>
 #include <mesh/mesh.h>
 #include <mesh/grid.h>
@@ -22,6 +20,7 @@ struct WindowOptions {
 struct WorldOptions {
 	glm::vec4 backgroundColor;
 	glm::vec4 foregroundColor;
+	glm::vec4 wireframeColor;
 	std::pair<glm::vec3, glm::vec3> bounds;
 };
 
@@ -81,7 +80,10 @@ public:
 
 	int setWindowDim(unsigned int, unsigned int);
 	int toggleWireframe();
+
 	std::shared_ptr<Camera>& getActiveCamera();
+	WindowOptions getWindowOptions();
+	WorldOptions getWorldOptions();
 };
 
 #endif

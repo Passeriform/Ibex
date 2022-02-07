@@ -1,6 +1,3 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "grid.h"
 
 Grid::Grid(std::pair<int, int> dim, int gridSize, glm::vec3 color) : Mesh() {
@@ -66,6 +63,6 @@ int Grid::bindAttributes() {
 	return 0;
 }
 
-int Grid::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, DrawOptions drawOptions) {
-	return Mesh::draw(camera, scrDim, drawOptions);
+int Grid::draw(World* world, DrawOptions drawOptions) {
+	return Mesh::draw(world, drawOptions);
 }

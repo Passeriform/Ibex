@@ -5,15 +5,12 @@
 
 #include <vector>
 #include <memory>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #include <material/material.h>
 #include <mesh/vertex.h>
-#include <camera/camera.h>
 #include <shader/shader.h>
-#include <shader/texture.h>
+
+class World;
 
 struct DrawOptions {
 	GLenum drawMode;
@@ -51,7 +48,7 @@ public:
 
 	// Necessary overloadable caller methods.
 	virtual int setupBuffers();
-	virtual int draw(std::shared_ptr<Camera>, std::pair<float, float>, DrawOptions = { GL_TRIANGLES, false });
+	virtual int draw(World*, DrawOptions = { GL_TRIANGLES, false });
 	virtual int deleteBuffers();
 };
 

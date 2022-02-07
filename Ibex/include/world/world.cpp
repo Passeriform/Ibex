@@ -6,6 +6,7 @@ World::World() :
 		{
 			glm::vec4(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f),			// backgroundColor
 			glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f),		// foregroundColor
+			glm::vec4(0.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 1.0f),		// wireframeColor
 			std::make_pair(															// bounds
 				glm::vec3(-1000.0f, -1000.0f, -1000.0f),
 				glm::vec3(1000.0f, 1000.0f, 1000.0f)
@@ -34,4 +35,12 @@ int World::toggleWireframe() {
 std::shared_ptr<Camera>& World::getActiveCamera() {
 	if (!activeCamera) return cameras[0];
 	return activeCamera;
+}
+
+WorldOptions World::getWorldOptions() {
+	return this->worldOptions;
+}
+
+WindowOptions World::getWindowOptions() {
+	return this->windowOptions;
 }

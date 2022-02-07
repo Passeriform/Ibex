@@ -1,7 +1,5 @@
-#include <memory>
-
 #include <lighting/omni_direction_light.h>
-#include <model/model.h>
+// #include <model/model.h>
 #include <mesh/primitives/cube.h>
 #include <material/material.h>
 
@@ -11,6 +9,7 @@ Void::Void() : World() {
 	/* Setup static world options */
 	worldOptions.backgroundColor = glm::vec4(2.0f / 255.0f, 0.0f / 255.0f, 10.0f / 255.0f, 1.0f);
 	worldOptions.foregroundColor = glm::vec4(42.0f / 255.0f, 0.0f / 255.0f, 41.0f / 255.0f, 1.0f);
+	worldOptions.wireframeColor = glm::vec4(255.0f / 255.0f, 255.0f / 255.0f, 0.0f / 255.0f, 1.0f);
 	gridOptions.gridColor = glm::vec4(212.0f / 255.0f, 20.0f / 255.0f, 212.0f / 255.0f, 1.0f);
 
 	/* Initialize grid */
@@ -73,10 +72,10 @@ int Void::load() {
 int Void::onTick() {
 	// Paint background color
 	glClearColor(
-		worldOptions.backgroundColor[0],
-		worldOptions.backgroundColor[1],
-		worldOptions.backgroundColor[2],
-		worldOptions.backgroundColor[3]
+		worldOptions.backgroundColor.r,
+		worldOptions.backgroundColor.g,
+		worldOptions.backgroundColor.b,
+		worldOptions.backgroundColor.a
 	);
 
 	// Clearing color and depth buffer each cycle
@@ -84,7 +83,7 @@ int Void::onTick() {
 
 	// Draw grid
 	if (grid->show) {
-		grid->draw(activeCamera, windowOptions.dim);
+		grid->draw(this);
 	}
 
 	// Draw all elements
@@ -97,12 +96,12 @@ int Void::onTick() {
 
 		DrawOptions drawOptions = DrawOptions();
 		drawOptions.showWireframe = showWireframe;
-		element->draw(activeCamera, windowOptions.dim, drawOptions);
+		element->draw(this, drawOptions);
 	}
 
 	// Draw all light sources
 	for (auto const& light : lightSources) {
-		light->draw(activeCamera, windowOptions.dim);
+		light->draw(this);
 	}
 
 	return 0;

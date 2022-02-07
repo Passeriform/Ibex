@@ -1,3 +1,5 @@
+#include <world/world.h>
+
 #include "lighting.h"
 
 LightSource::LightSource() :
@@ -91,14 +93,19 @@ int Lighting::setupBuffers() {
 	return 0;
 }
 
-int Lighting::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim) {
+int Lighting::draw(World* world) {
 	// Use the dedicated lighting shader
 	lightingShader->use();
 
 	// Setting up model, view and projection matrices
 	glm::mat4 model = glm::mat4(1.0f);
-	glm::mat4 view = camera->getViewMatrix();
-	glm::mat4 projection = glm::perspective(glm::radians(camera->zoom), static_cast<float>(scrDim.first) / static_cast<float>(scrDim.second), 0.1f, 100.0f);
+	glm::mat4 view = world->getActiveCamera()->getViewMatrix();
+	glm::mat4 projection = glm::perspective(
+		glm::radians(world->getActiveCamera()->zoom),
+		static_cast<float>(world->getWindowOptions().dim.first) / static_cast<float>(world->getWindowOptions().dim.second),
+		0.1f,
+		100.0f
+	);
 
 	// Setting model, view and projection matrices in the shader
 	lightingShader->setMat4("model", model);
@@ -107,7 +114,7 @@ int Lighting::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDi
 
 	// Set point styling uniforms
 	glEnable(GL_PROGRAM_POINT_SIZE);
-	lightingShader->setVec3("cameraeye", camera->position);
+	lightingShader->setVec3("cameraeye", world->getActiveCamera()->position);
 	lightingShader->setFloat("pointsize", 25.0f);
 	lightingShader->setFloat("delta", 15.0f);
 

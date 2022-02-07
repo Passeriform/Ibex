@@ -1,8 +1,6 @@
 #include <algorithm>
-#include <functional>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
+#include <world/world.h>
 #include <utility/utility.h>
 
 #include "mesh.h"
@@ -150,7 +148,7 @@ int Mesh::setupBuffers() {
 	return 0;
 }
 
-int Mesh::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, DrawOptions drawOptions) {
+int Mesh::draw(World* world, DrawOptions drawOptions) {
 	// Using mesh shader
 	meshShader->use();
 
@@ -176,8 +174,8 @@ int Mesh::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, D
 
 	// Setting up model, view and projection matrices
 	glm::mat4 model = glm::mat4(1.0f);
-	glm::mat4 view = camera->getViewMatrix();
-	glm::mat4 projection = glm::perspective(glm::radians(camera->zoom), static_cast<float>(scrDim.first) / static_cast<float>(scrDim.second), 0.1f, 100.0f);
+	glm::mat4 view = world->getActiveCamera()->getViewMatrix();
+	glm::mat4 projection = glm::perspective(glm::radians(world->getActiveCamera()->zoom), static_cast<float>(world->getWindowOptions().dim.first) / static_cast<float>(world->getWindowOptions().dim.second), 0.1f, 100.0f);
 
 	// Setting model, view and projection matrices in the shader
 	meshShader->setMat4("model", model);
@@ -185,7 +183,7 @@ int Mesh::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, D
 	meshShader->setMat4("projection", projection);
 
 	// Set updated camera view position
-	meshShader->setVec3("viewPos", camera->position);
+	meshShader->setVec3("viewPos", world->getActiveCamera()->position);
 
 	// Set material-light interaction parameters
 	meshShader->setVec3("material.ambient", material->materialLightMap.ambient);		// Add ambient strength to shader
@@ -206,7 +204,7 @@ int Mesh::draw(std::shared_ptr<Camera> camera, std::pair<float, float> scrDim, D
 
 	// Set wireframe mode on shader
 	// TODO: Get from global world settings.
-	meshShader->setVec3("wireframeColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	meshShader->setVec3("wireframeColor", world->getWorldOptions().wireframeColor);
 	meshShader->setBool("showWireframe", drawOptions.showWireframe);
 
 	// Bind the VAO before drawing lightSources

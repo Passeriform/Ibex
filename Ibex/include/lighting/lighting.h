@@ -3,10 +3,12 @@
 #ifndef LIGHTING_H
 #define LIGHTING_H
 
+#include <memory>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <shader/shader.h>
-#include <camera/camera.h>
+
+extern class World;
 
 struct LightSource {
 	glm::vec3 color;
@@ -41,7 +43,7 @@ public:
 
 	virtual int applyEffect(Shader&);
 	virtual int setupBuffers();
-	virtual int draw(std::shared_ptr<Camera>, std::pair<float, float>);
+	virtual int draw(World*);
 	virtual int deleteBuffers();
 };
 
