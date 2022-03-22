@@ -152,71 +152,66 @@ int Mesh::draw(World* world, DrawOptions drawOptions) {
 	// Using mesh shader
 	meshShader->use();
 
-	// Wrap current scope in wireframe setup and teardown.
-	auto ctxt_marker = with_context<bool>(
-		// Run on construction
-		[showWireframe = drawOptions.showWireframe]() {
-		if (showWireframe) {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		}
-		else {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
-
-		return showWireframe;
-	},
-		// Run on destruction
-		[]() {
-		glLineWidth(1);
+	// Wireframe setup
+	if (drawOptions.showWireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	);
 
-	// Setting up model, view and projection matrices
-	glm::mat4 model = glm::mat4(1.0f);
-	glm::mat4 view = world->getActiveCamera()->getViewMatrix();
-	glm::mat4 projection = glm::perspective(glm::radians(world->getActiveCamera()->zoom), static_cast<float>(world->getWindowOptions().dim.first) / static_cast<float>(world->getWindowOptions().dim.second), 0.1f, 100.0f);
+	scope_exit(
+		[]() {
+			glLineWidth(1);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+	)
 
-	// Setting model, view and projection matrices in the shader
-	meshShader->setMat4("model", model);
-	meshShader->setMat4("view", view);
-	meshShader->setMat4("projection", projection);
+		// Setting up model, view and projection matrices
+			glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = world->getActiveCamera()->getViewMatrix();
+		glm::mat4 projection = glm::perspective(glm::radians(world->getActiveCamera()->zoom), static_cast<float>(world->getWindowOptions().dim.first) / static_cast<float>(world->getWindowOptions().dim.second), 0.1f, 100.0f);
 
-	// Set updated camera view position
-	meshShader->setVec3("viewPos", world->getActiveCamera()->position);
+		// Setting model, view and projection matrices in the shader
+		meshShader->setMat4("model", model);
+		meshShader->setMat4("view", view);
+		meshShader->setMat4("projection", projection);
 
-	// Set material-light interaction parameters
-	meshShader->setVec3("material.ambient", material->materialLightMap.ambient);		// Add ambient strength to shader
+		// Set updated camera view position
+		meshShader->setVec3("viewPos", world->getActiveCamera()->position);
 
-	// Set offset layout pointer for registered textures
-	if (material->isTextured()) {
-		meshShader->setInt("material.diffuse", 0);
-		meshShader->setInt("material.specular", 1);
-	}
-	// Add explicit diffuse and specular strengths to shader
-	else {
-		meshShader->setVec3("material.diffuse", material->materialLightMap.diffuse);
-		meshShader->setVec3("material.specular", material->materialLightMap.specular);
-	}
+		// Set material-light interaction parameters
+		meshShader->setVec3("material.ambient", material->materialLightMap.ambient);		// Add ambient strength to shader
 
-	// Add shininess to shader
-	meshShader->setFloat("material.shininess", material->materialLightMap.shininess);
+		// Set offset layout pointer for registered textures
+		if (material->isTextured()) {
+			meshShader->setInt("material.diffuse", 0);
+			meshShader->setInt("material.specular", 1);
+		}
+		// Add explicit diffuse and specular strengths to shader
+		else {
+			meshShader->setVec3("material.diffuse", material->materialLightMap.diffuse);
+			meshShader->setVec3("material.specular", material->materialLightMap.specular);
+		}
 
-	// Set wireframe mode on shader
-	// TODO: Get from global world settings.
-	meshShader->setVec3("wireframeColor", world->getWorldOptions().wireframeColor);
-	meshShader->setBool("showWireframe", drawOptions.showWireframe);
+		// Add shininess to shader
+		meshShader->setFloat("material.shininess", material->materialLightMap.shininess);
 
-	// Bind the VAO before drawing lightSources
-	glBindVertexArray(VAO);
+		// Set wireframe mode on shader
+		// TODO: Get from global world settings.
+		meshShader->setVec3("wireframeColor", world->getWorldOptions().wireframeColor);
+		meshShader->setBool("showWireframe", drawOptions.showWireframe);
 
-	// Draw the elements
-	glDrawElements(drawOptions.drawMode, locations.size(), GL_UNSIGNED_INT, NULL);
+		// Bind the VAO before drawing lightSources
+		glBindVertexArray(VAO);
 
-	// Unbind the VAO
-	glBindVertexArray(0);
+		// Draw the elements
+		glDrawElements(drawOptions.drawMode, locations.size(), GL_UNSIGNED_INT, NULL);
 
-	return 0;
+		// Unbind the VAO
+		glBindVertexArray(0);
+
+		return 0;
 }
 
 int Mesh::deleteBuffers() {

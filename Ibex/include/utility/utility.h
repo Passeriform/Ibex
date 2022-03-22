@@ -34,25 +34,10 @@ void construct_vec_by_move(std::vector<T>& packVec, T elem) {
 	packVec.emplace_back(std::move(elem));
 }
 
-template <typename T>
-using scope_marker = std::unique_ptr<T, std::function<void(T*)>>;
-
-template <typename NV, typename T = std::enable_if<!std::is_same<NV, void>::value>>
-scope_marker<T> with_context(std::function<T()> ctor, std::function<void()> _dtor) {
-	decltype(_dtor)* dtor = new decltype(_dtor)(_dtor);
-	scope_marker<T> marker(new T(ctor()), [dtor](T* mark) { (*dtor)(); });
-	return std::move(marker);
+template <typename F>
+auto scope_exit(F&& scopedFn) {
+	auto scopedFnWrapper = [scopedFn{ std::forward<F>(scopedFn) }](void*){ scopedFn(); };
+	return std::unique_ptr<void, decltype(scopedFnWrapper)>{&scopedFnWrapper, std::move(scopedFnWrapper)};
 }
-
-// Fallback for void types
-template <typename V, typename T = std::enable_if<!std::is_same<V, void>::value>>
-scope_marker<T> with_context(std::function<void()> ctor, std::function<void()> _dtor) {
-	decltype(_dtor)* dtor = new decltype(_dtor)(_dtor);
-	ctor();
-	scope_marker<T> marker(NULL, [dtor](T* mark) { (*dtor)(); });
-	return std::move(marker);
-}
-
-void run_contextually(std::function<void()> ctor, std::function<void()> dtor, std::function<void()> delegate);
 
 #endif
