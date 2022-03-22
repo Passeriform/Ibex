@@ -65,7 +65,7 @@ int Mesh::setFlatColor(glm::vec3 flatColor) {
 	return 0;
 }
 
-int Mesh::genBuffers() {
+inline int Mesh::genBuffers() {
 	// Generate VAO for the component
 	glGenVertexArrays(1, &VAO);
 
@@ -78,7 +78,7 @@ int Mesh::genBuffers() {
 	return 0;
 }
 
-int Mesh::bindBuffers() {
+inline int Mesh::bindBuffers() {
 	// Bind the VAO
 	glBindVertexArray(VAO);
 
@@ -93,7 +93,7 @@ int Mesh::bindBuffers() {
 	return 0;
 }
 
-int Mesh::bindAttributes() {
+inline int Mesh::bindAttributes() {
 	// Bind vertex position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, position)));
 	glEnableVertexAttribArray(0);

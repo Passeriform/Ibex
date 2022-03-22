@@ -29,9 +29,9 @@ protected:
 	std::unique_ptr<Shader> meshShader;
 
 	// Chunk buffer setup methods to individually overload.
-	virtual int genBuffers();
-	virtual int bindBuffers();
-	virtual int bindAttributes();
+	virtual inline int genBuffers();
+	virtual inline int bindBuffers();
+	virtual inline int bindAttributes();
 
 public:
 	std::shared_ptr<Material> material;

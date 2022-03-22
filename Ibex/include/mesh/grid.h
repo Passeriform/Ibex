@@ -11,7 +11,7 @@ public:
 
 	Grid(std::pair<int, int>, int, glm::vec3);
 
-	int bindAttributes() override;
+	inline int bindAttributes() override;
 	int draw(World*, DrawOptions = { GL_LINES, false }) override;
 
 };

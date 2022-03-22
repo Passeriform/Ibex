@@ -51,7 +51,7 @@ Grid::Grid(std::pair<int, int> dim, int gridSize, glm::vec3 color) : Mesh() {
 	}
 }
 
-int Grid::bindAttributes() {
+inline int Grid::bindAttributes() {
 	// Bind vertex position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, position)));
 	glEnableVertexAttribArray(0);
